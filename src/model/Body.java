@@ -134,6 +134,29 @@ public class Body extends GraphicalObject {
 
     }
 
+    public int getHP(){
+        return stats[0];
+    }
+
+    public int getStamina(){
+        return stats[1];
+    }
+    public int getSpeed(){
+        return stats[2];
+    }
+
+    public void setHP(int hp){
+        stats[0] = hp;
+    }
+
+    public void setStamina(int stamina){
+        stats[1] = stamina;
+    }
+
+    public void setSpeed(int speed){
+        stats[2] = speed;
+    }
+
 
 
 }
