@@ -1,9 +1,13 @@
 package model.powerUP;
 import model.Body;
 
-public class HeroShield extends PowerUP {
+/**
+ * Man wird resistänter gegen Schaden wird aber langsamer und die Ausdauer verringert sich.
+ */
 
-    public HeroShield(Body body){
+public class HylianShield extends PowerUP {
+
+    public HylianShield(Body body){
         setuBody(body);
         setuHp(body.getHP());
         setuStamina(-(body.getStamina()/8));

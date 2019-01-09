@@ -14,6 +14,7 @@ public class ProgramController {
 
     //Attribute
     private double programTimer;
+    private double timer = 0;
 
     // Referenzen
     private UIController uiController;  // diese Referenz soll auf ein Objekt der Klasse uiController zeigen. Über dieses Objekt wird das Fenster gesteuert.
@@ -43,6 +44,7 @@ public class ProgramController {
         // ******************************************* Ab hier euer eigener Code! *******************************************
         uiController.registerObject(bg);
         uiController.registerObject(body);
+        timer = 0;
     }
 
     /**
@@ -52,6 +54,13 @@ public class ProgramController {
     public void updateProgram(double dt){
         programTimer += dt;
         // ******************************************* Ab hier euer eigener Code! *******************************************
+        while(timer < 0){
+        }
+    }
+
+    public void updateStoppedTime(double dt, double timeStopCount){
+        timer = 5;
+        timer = timer - dt;
     }
 
 }

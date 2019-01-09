@@ -141,6 +141,7 @@ public class Body extends GraphicalObject {
     public int getStamina(){
         return stats[1];
     }
+
     public int getSpeed(){
         return stats[2];
     }
