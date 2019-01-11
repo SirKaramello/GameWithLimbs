@@ -5,6 +5,7 @@ import akkgframework.view.DrawTool;
 import akkgframework.view.DrawableObject;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -139,6 +140,15 @@ public abstract class GraphicalObject implements DrawableObject {
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
 
+    }
+
+    public BufferedImage resize(BufferedImage img,int width,int height){
+        Image temp = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        BufferedImage resized=new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = resized.createGraphics();
+        g2d.drawImage(temp,0,0,null);
+        g2d.dispose();
+        return resized;
     }
 
     /**

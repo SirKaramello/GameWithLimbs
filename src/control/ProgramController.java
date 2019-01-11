@@ -3,8 +3,10 @@ package control;
 import akkgframework.control.fundamental.UIController;
 import akkgframework.model.Display;
 import akkgframework.control.fundamental.SoundController;
+import akkgframework.model.abitur.datenstrukturen.List;
 import model.Background;
 import model.Body;
+import model.Enemy;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -21,6 +23,7 @@ public class ProgramController {
     private SoundController soundController;
     private Body body;
     private Background bg;
+    private Enemy enemies;
 
     /**
      * Konstruktor
@@ -33,6 +36,8 @@ public class ProgramController {
         this.uiController = uiController;
         body=new Body(uiController);
         bg=new Background(body);
+        //enemies= new List();
+        enemies=new Enemy(uiController,body);
     }
 
     /**
@@ -43,6 +48,7 @@ public class ProgramController {
         // ******************************************* Ab hier euer eigener Code! *******************************************
         uiController.registerObject(bg);
         uiController.registerObject(body);
+        uiController.registerObject(enemies);
     }
 
     /**
