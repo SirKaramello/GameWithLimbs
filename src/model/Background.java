@@ -1,17 +1,20 @@
 package model;
 
+import akkgframework.control.fundamental.UIController;
 import akkgframework.model.fundamental.GraphicalObject;
 import akkgframework.view.DrawTool;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class Background extends GraphicalObject {
 
     private String mode;
-    private double mouseX,mouseY;
+    private double mouseX,mouseY,time;
 
     private BufferedImage[] images;
+    private UIController uic;
     private Body player;
     private PointerInfo a;
 
@@ -19,7 +22,8 @@ public class Background extends GraphicalObject {
      * Der Konstruktor der Klasse Background
      * @param player <- das , ist der Spieler!
      */
-    public Background(Body player){
+    public Background(Body player , UIController uiC){
+        uic=uiC;
         mode="fight";
         this.player=player;
         images=new BufferedImage[2];
@@ -45,6 +49,14 @@ public class Background extends GraphicalObject {
      */
     @Override
     public void update(double dt) {
+        if(uic.isKeyDown(KeyEvent.VK_ESCAPE)){
+            time+=dt;
+            if(time>=1){
+                System.exit(1);
+            }
+        }else{
+            time =0;
+        }
         a = MouseInfo.getPointerInfo();
         mouseX=a.getLocation().getX();
         mouseY=a.getLocation().getY();

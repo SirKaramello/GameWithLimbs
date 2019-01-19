@@ -24,7 +24,7 @@ public class ProgramController {
     private SoundController soundController;
     private Body body;
     private Background bg;
-    private Enemy enemies;
+    private List<Enemy> enemies;
 
     /**
      * Konstruktor
@@ -36,9 +36,10 @@ public class ProgramController {
     public ProgramController(UIController uiController){
         this.uiController = uiController;
         body=new Body(uiController);
-        bg=new Background(body);
-        //enemies= new List();
-        enemies=new Enemy(uiController,body);
+        bg=new Background(body, uiController);
+        enemies= new List();
+        enemies.append(new Enemy(uiController,body));
+        enemies.toFirst();
     }
 
     /**
@@ -48,8 +49,9 @@ public class ProgramController {
         programTimer = 0;
         // ******************************************* Ab hier euer eigener Code! *******************************************
         uiController.registerObject(bg);
+        uiController.registerObject(enemies.getContent());
         uiController.registerObject(body);
-        uiController.registerObject(enemies);
+        uiController.registerObject(enemies.getContent());
         timer = 0;
     }
 

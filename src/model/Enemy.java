@@ -3,15 +3,20 @@ package model;
 import akkgframework.control.fundamental.UIController;
 import akkgframework.view.DrawTool;
 
+import java.awt.*;
 import java.io.File;
 
 public class Enemy extends Body {
 
-    private double[] hidden,input, output;
-
+    //Attribute
+    private double[] input, hidden , output;
+    private double succesRate,tan;
     private int gen;
+    private boolean lel;
 
+    //Referenzen
     private Body player;
+    private GraphicsEnvironment gd;
 
     /**
      * Konstruktor der Klasse Enemy
@@ -19,12 +24,15 @@ public class Enemy extends Body {
      */
     public Enemy(UIController uiController, Body player){
         super(uiController);
-        hidden=new double[1];
+        hidden=new double[3];
+        output=new double[3];
+        input=new double[3];
         createData();
-        x=500;
+        x=player.getX();
+        y=player.getY();
+        mode2=1;
         this.player=player;
         gen=1;
-        output=new double[3];
     }
 
     /**
@@ -33,7 +41,7 @@ public class Enemy extends Body {
      */
     @Override
     public void draw(DrawTool drawTool) {
-        super.draw(drawTool);
+        drawPlayer(drawTool);
     }
 
     /**
@@ -44,31 +52,52 @@ public class Enemy extends Body {
     public void update(double dt) {
         time+=7*dt;
         for(int i=0;i<output.length;i++) {
-            if (output[i] >= i && output[i] <= i + 1) {
-                mode = i;
-            }
         }
         if(time>=8){
             time=0;
         }
-
-        double tan=Math.atan2(output[0]-y,output[1]-x);
-        x+=Math.cos(tan)*stats[2]*dt;
-        y+=Math.sin(tan)*stats[2]*dt;
-        //datas[0]=getDistanceToPlayer();
+        if(output[0]<=0.25) {
+            double tan = Math.atan2(player.getY() - y, player.getX() - x);
+            x += Math.cos(tan) * stats[2] * dt;
+            y += Math.sin(tan) * stats[2] * dt;
+        }
+        if(lel) {
+            tan = Math.atan2(Math.random() * gd.getDefaultScreenDevice().getDisplayMode().getHeight() - y, Math.random() * gd.getDefaultScreenDevice().getDisplayMode().getWidth() - x);
+        }
+        if(output[0]>0.25 && output[0]<=0.5){
+            lel=false;
+            x += Math.cos(tan) * stats[2] * dt;
+            y += Math.sin(tan) * stats[2] * dt;
+        }
+        if(output[0]>0.5 && output[0]<=0.75){
+            mode2=3;
+        }
+        if(output[0]>0.75 && output[0]<=0.8025){
+            mode2=1;
+        }
+        if(output[0]>0.8025 && output[0]<=1){
+            mode2=2;
+        }
     }
 
     /**
      * Es lernt , Daten sind toll . Es wird schlau , irgendwann
      */
     public void studyTheShitOuttaDat(){
+        if(succesRate<1) {
+            input[0] = getDistanceToPlayer();
+            input[1] = player.getMode();
+            input[2] = player.getMode2();
+            for (int i = 0; i < hidden.length; i++) {
+                hidden[i] = input[0];
+            }
+        }
         if(player.getStat(0)<=0){
-            //Freude
+            succesRate=succesRate*1.25;
         }
         if(stats[0]<=0){
-            //Böse
+            succesRate=succesRate*0.25;
         }
-
     }
 
     /**

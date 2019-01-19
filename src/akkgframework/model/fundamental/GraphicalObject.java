@@ -142,11 +142,11 @@ public abstract class GraphicalObject implements DrawableObject {
 
     }
 
-    public BufferedImage resize(BufferedImage img,int width,int height){
+    public BufferedImage resize(BufferedImage img,int width,int height, Color color){
         Image temp = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         BufferedImage resized=new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = resized.createGraphics();
-        g2d.drawImage(temp,0,0,null);
+        g2d.drawImage(temp,0,0,0,0,color,null);
         g2d.dispose();
         return resized;
     }

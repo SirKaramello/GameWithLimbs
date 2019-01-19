@@ -31,7 +31,10 @@ public class DrawFrame extends JFrame {
         add(activePanel);
         addKeyListener(activePanel);
         setLocation(x,y);
+        setResizable(false);
+        setUndecorated(true);
         setSize(width,height);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setTitle(name);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
