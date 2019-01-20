@@ -27,7 +27,6 @@ public class Enemy extends Body {
         hidden=new double[3];
         output=new double[3];
         input=new double[3];
-        createData();
         x=player.getX();
         y=player.getY();
         this.player=player;
@@ -100,16 +99,5 @@ public class Enemy extends Body {
      * Es speichert einen File mit Informationen
      */
 
-    /**
-     * Es erstellt einen File mit ohne Informationen
-     */
-    public void createData(){
-         File f=new File("assets/data/","Data");
-         try {
-             f.createNewFile();
-         }catch (Exception e){
-             System.out.println("ES SCHMERZT!!!!!!");
-         }
-    }
 
 }

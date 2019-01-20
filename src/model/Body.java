@@ -1,22 +1,26 @@
 package model;
 
 import akkgframework.control.fundamental.UIController;
+import akkgframework.model.abitur.datenstrukturen.Queue;
 import akkgframework.model.fundamental.GraphicalObject;
+import akkgframework.model.abitur.datenstrukturen.List;
 import akkgframework.model.fundamental.Tileset;
 import akkgframework.view.DrawTool;
+import model.weapons.Weapon;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.*;
+import java.util.Scanner;
 
 public class Body extends GraphicalObject {
 
     //Attribute;
     protected double  time;
     protected String mode,mode2;
+    private char[] save;
     protected int[] stats  ;
-    protected int hpMax, stMax;
     protected double[] hitbox;
 
     //Referenzen
@@ -25,13 +29,13 @@ public class Body extends GraphicalObject {
     protected UIController uic;
     protected BufferedImage[] bars;
     private Enemy enemy;
+    private List<Weapon> inventory;
 
     //0=hp 1=stamina 2=speed 3=strength 4=resistance
     public Body(UIController uiController){
         hitbox=new double[4];
         uic=uiController;
-        stats=new int[5];
-        stats[2]=300;
+        stats=new int[6];
         width=20;height=width*2;
         body=new Tileset("assets/images/runningb.png",256,360);
         fight=new Tileset("assets/images/fighting.png",256,360);
@@ -42,7 +46,9 @@ public class Body extends GraphicalObject {
         stats[0]=bars[0].getWidth();
         stats[1]=bars[1].getWidth();
         mode="stand";
-        mode2="nonde";
+        mode2="none";
+        getSaveData();
+        handleSave();
     }
 
     /**
@@ -164,6 +170,11 @@ public class Body extends GraphicalObject {
         System.out.println(stats[1]);
     }
 
+    public boolean checkIfBodyIsInArena(){
+       //if()
+        return false;
+    }
+
 
     /**
      *
@@ -223,6 +234,52 @@ public class Body extends GraphicalObject {
 
     public String getMode2(){
         return mode2;
+    }
+
+    public void getSaveData(){
+        try {
+            FileReader reader = new FileReader("assets/data/save.txt");
+            Reader bufferedReader = new BufferedReader(reader);
+            FileInputStream fileInputStream= new FileInputStream("assets/data/save.txt");
+            int filelength = 0;
+            while (bufferedReader.read() != -1) {
+                filelength++;
+            }
+            save = new char[filelength];
+            for(int i=0;i<save.length && fileInputStream.available()>0;i++){
+                save[i] = (char) (fileInputStream.read());
+            }
+            System.out.println(save);
+        }catch (Exception e){
+            System.out.println("Konnte nicht gespeichert werden");
+        }
+    }
+
+    public void handleSave(){
+        String tmp="";
+        int j=1;
+        for(int i=0;i<stats.length ;i++){
+            while(j<save.length){
+                if(j+1<save.length && save[j]!=':'){
+                    tmp+="" +save[j];
+                }else{
+                    break;
+                }
+                j++;
+
+            }
+            stats[i]=Integer.parseInt(tmp);
+        }
+    }
+
+    public void saveGame(){
+        try {
+            FileWriter fileWriter = new FileWriter("assets/data/save.txt");
+            fileWriter.write(":"+stats[0]+":"+stats[1]+":"+stats[2]+":"+stats[3]+":"+stats[4]+":"+stats[5]+":");
+            fileWriter.close();
+        }catch (Exception e){
+            System.out.println("Konnte nicht gespeichert werden");
+        }
     }
 
     /**
