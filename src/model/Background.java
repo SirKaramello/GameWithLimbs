@@ -11,12 +11,13 @@ import java.awt.image.BufferedImage;
 public class Background extends GraphicalObject {
 
     private String mode;
-    private double mouseX,mouseY,time;
+    private double mouseX,mouseY,time,cx,cy;
 
     private BufferedImage[] images;
     private UIController uic;
     private Body player;
     private PointerInfo a;
+    private GraphicsEnvironment gd;
 
     /**
      * Der Konstruktor der Klasse Background
@@ -25,6 +26,7 @@ public class Background extends GraphicalObject {
     public Background(Body player , UIController uiC){
         uic=uiC;
         mode="fight";
+        gd=GraphicsEnvironment.getLocalGraphicsEnvironment();
         this.player=player;
         images=new BufferedImage[2];
         images[0]= createNewImage("assets/images/wip.png");
@@ -38,7 +40,7 @@ public class Background extends GraphicalObject {
     @Override
     public void draw(DrawTool drawTool) {
         if(mode.equals("fight")) {
-            drawTool.camera(-player.getX()/7,-player.getY()/7);
+            drawTool.camera(100,-cy/3);
             drawTool.drawImage(images[0], -100, -450);
         }
     }
@@ -49,6 +51,15 @@ public class Background extends GraphicalObject {
      */
     @Override
     public void update(double dt) {
+        cx=player.getX();
+        cy=player.getY()-500;
+        if(player.getX()+player.getWidth()/2<-100){
+            player.setMode("falling");
+            mode="death";
+        }
+        if(cy<=-400){
+            cy=-400;
+        }
         if(uic.isKeyDown(KeyEvent.VK_ESCAPE)){
             time+=dt;
             if(time>=1){

@@ -112,6 +112,7 @@ public class UIController implements ActionListener {
         return drawFrame.getActiveDrawingPanel().isKeyDown(key);
     }
 
+
     /**
      * Wird vom Timer-Thread aufgerufen. Es wird dafuer gesorgt, dass das aktuelle Drawing-Panel
      * alle seine Objekte zeichnet und deren Update-Methoden aufruft.

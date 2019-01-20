@@ -14,8 +14,9 @@ public class Body extends GraphicalObject {
 
     //Attribute;
     protected double  time;
-    protected int mode,mode2;
+    protected String mode,mode2;
     protected int[] stats  ;
+    protected int hpMax, stMax;
     protected double[] hitbox;
 
     //Referenzen
@@ -38,10 +39,10 @@ public class Body extends GraphicalObject {
         bars=new BufferedImage[2];
         bars[0]=createNewImage("assets/images/layout/hpbar.png");
         bars[1]=createNewImage("assets/images/layout/stbar.png");
-        for(int i=0;i<stats.length-3;i++){
-            stats[i]=bars[i].getWidth();
-        }
-        mode=3;
+        stats[0]=bars[0].getWidth();
+        stats[1]=bars[1].getWidth();
+        mode="stand";
+        mode2="nonde";
     }
 
     /**
@@ -50,14 +51,13 @@ public class Body extends GraphicalObject {
      */
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.camera(x,y/3);
-        for(int i=0;i<bars[0].getWidth();i+=32){
+        for(int i=0;i<stats[0];i++){
             drawTool.setCurrentColor(0,70,100,255);
-            drawTool.drawFilledRectangle(x+i,y,32,32);
+            drawTool.drawFilledRectangle(x+i,y,1,32);
         }
-        for(int i=0;i<bars[1].getWidth();i+=32){
+        for(int i=0;i<stats[1];i++){
             drawTool.setCurrentColor(0,125,100,255);
-            drawTool.drawFilledRectangle(x+i,y+30,32,32);
+            drawTool.drawFilledRectangle(x+i,y+30,1,32);
         }
         drawTool.drawImage(bars[0],x,y);
         drawTool.drawImage(bars[1],x,y+30);
@@ -70,34 +70,34 @@ public class Body extends GraphicalObject {
      */
     public void drawPlayer(DrawTool drawTool){
         System.out.println(mode +" 2 : "+mode2);
-        if(mode==0 && mode2==0) {
+        if(mode.equals("right")) {
             drawTool.drawImage(body.getTile((int) time, 0), x, y);
         }
-        if(mode==1 && mode2==0) {
+        if(mode.equals("left") ) {
             drawTool.flipImage(body.getTile((int) (time),0),x,y,-256,360);
         }
-        if(mode==2 && mode2==0) {
+        if(mode.equals("up") ) {
             drawTool.drawImage(body.getTile((int) time, 2), x, y);
         }
-        if(mode==3 && mode2==0) {
+        if(mode.equals("down")) {
             drawTool.drawImage(body.getTile((int) time, 1), x, y);
         }
-        if(mode2==4 && mode==1) {
+        if(mode2.equals("fightE") && mode.equals("left") ) {
             drawTool.flipImage(fight.getTile((int) time, 0), x, y,-256,360);
         }
-        if(mode2==1 && mode==1) {
+        if(mode2.equals("fightS") && mode.equals("left") ) {
             drawTool.flipImage(fight.getTile((int) time, 1), x, y,-256,360);
         }
-        if(mode2==2 ) {
+        if(mode2.equals("fightE")  ) {
             drawTool.drawImage(fight.getTile((int) time, 0), x, y);
         }
-        if(mode2==1 ) {
+        if(mode2.equals("fightS")  ) {
             drawTool.drawImage(fight.getTile((int) time, 1), x, y);
         }
-        if(mode==6 && mode2==0) {
+        if(mode2.equals("stand")) {
             drawTool.drawImage(stand.getTile((int) time, 0), x, y);
         }
-        if(mode2==4) {
+        if(mode2.equals("roll")) {
             drawTool.drawImage(stand.getTile((int) time, 1), x, y);
         }
     }
@@ -111,57 +111,57 @@ public class Body extends GraphicalObject {
     public void update(double dt) {
         time+=10*dt;
         System.out.println(mode);
-        if(!uic.isKeyDown(KeyEvent.VK_D) && !uic.isKeyDown(KeyEvent.VK_S) && !uic.isKeyDown(KeyEvent.VK_W) && !uic.isKeyDown(KeyEvent.VK_A)){
-            mode=6;
-            mode2=0;
+        if(!uic.isKeyDown(KeyEvent.VK_D) && !uic.isKeyDown(KeyEvent.VK_S) && !uic.isKeyDown(KeyEvent.VK_W) && !uic.isKeyDown(KeyEvent.VK_A) && !mode.equals("fight")){
+            mode2="stand";
+            mode="none";
         }
         if(uic.isKeyDown(KeyEvent.VK_S)){
             y+=stats[2]*dt;
-            mode=3;
+            mode="down";
         }
         if(uic.isKeyDown(KeyEvent.VK_W)){
             y-=stats[2]*dt;
-            mode=2;
+            mode="up";
         }
         if(uic.isKeyDown(KeyEvent.VK_A)){
             x-=stats[2]*dt;
-            mode=1;
+            mode="left";
         }
         if(uic.isKeyDown(KeyEvent.VK_D)){
             x+=stats[2]*dt;
-            mode=0;
+            mode="right";
         }
         if(time>=8){
             time=0;
         }
         if(stats[0]<=0){
-            mode=-1;
+            mode="boom";
         }
-        if(mode2==2 || mode2==1){
-            stats[1]-=10*0.5;
-            if(time>=4 && time<5) {
+        if(mode2.equals("fightE") || mode2.equals("fightS")) {
+            if (stats[1] > 0) {
+                stats[1] -= 10 * 0.5 * dt;
+            } else {
+                mode2 = "stand";
+            }
+            if (time >= 4 && time < 5) {
                 hitbox((int) (x + fight.getTile((int) (time), 0).getWidth() / 2), y + 10, 75, 20);
-            }else if(time>=7 && time<8){
-                hitbox((int) (x + fight.getTile((int) (time), 0).getWidth() / 2), y +fight.getTile((int) (time), 0).getHeight() , 75, 20);
+            } else if (time >= 7 && time < 8) {
+                hitbox((int) (x + fight.getTile((int) (time), 0).getWidth() / 2), y + fight.getTile((int) (time), 0).getHeight(), 75, 20);
             }
         }
-        if(mode==-1){
+        if(mode2.equals("stand") && stats[1]<bars[1].getWidth()) {
+            stats[1]+=32*dt;
+        }
+        if(mode.equals("boom")){
             legs=new Limb[2];
             arms=new Limb[2];
             legs[0]=new Limb(x,y+height/1.5,10);
             legs[1]=new Limb(x+width/2,y+height/1.5,10);
             arms[0]=new Limb(x,y+height/4.5,10);
             arms[1]=new Limb(x+width,y+height/4.5,10);
-            mode=-2;
+            mode="lel";
         }
-        switch (mode){
-            case -2:
-                if(uic.isKeyDown(KeyEvent.VK_S)){
-                    y+=stats[2]*dt;
-                    mode=3;
-                }
-                break;
-        }
+        System.out.println(stats[1]);
     }
 
 
@@ -186,12 +186,17 @@ public class Body extends GraphicalObject {
      */
     @Override
     public void mousePressed(MouseEvent e) {
-        if(e.getButton()==1){
-            mode2=2;
+        mode="fight";
+        if(e.getButton()==1 && stats[1]>0){
+            mode2="fightE";
         }
-        if(e.getButton()==3){
-            mode2=1;
+        if(e.getButton()==3 && stats[1]>0){
+            mode2="fightS";
         }
+    }
+
+    public void mouseReleased(MouseEvent e){
+        mode2="stand";
     }
 
     /**
@@ -199,8 +204,8 @@ public class Body extends GraphicalObject {
      * @param key jeweilige Taste die gedrückt wurde
      */
     public void keyPressed(int key){
-        if(key==KeyEvent.VK_SPACE){
-            mode2=4;
+        if(key==KeyEvent.VK_SPACE && stats[1]>0){
+            mode2="roll";
         }
     }
 
@@ -208,11 +213,15 @@ public class Body extends GraphicalObject {
         return stats[i];
     }
 
-    public int getMode(){
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    public String getMode(){
         return mode;
     }
 
-    public int getMode2(){
+    public String getMode2(){
         return mode2;
     }
 

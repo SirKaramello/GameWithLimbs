@@ -30,7 +30,6 @@ public class Enemy extends Body {
         createData();
         x=player.getX();
         y=player.getY();
-        mode2=1;
         this.player=player;
         gen=1;
     }
@@ -41,7 +40,7 @@ public class Enemy extends Body {
      */
     @Override
     public void draw(DrawTool drawTool) {
-        drawPlayer(drawTool);
+        drawTool.drawFilledRectangle(x,y,50,50);
     }
 
     /**
@@ -57,7 +56,7 @@ public class Enemy extends Body {
             time=0;
         }
         if(output[0]<=0.25) {
-            double tan = Math.atan2(player.getY() - y, player.getX() - x);
+            double tan = Math.atan2(player.getY()+player.getHeight() - y+height, player.getX()+player.getWidth() - x+width);
             x += Math.cos(tan) * stats[2] * dt;
             y += Math.sin(tan) * stats[2] * dt;
         }
@@ -69,15 +68,6 @@ public class Enemy extends Body {
             x += Math.cos(tan) * stats[2] * dt;
             y += Math.sin(tan) * stats[2] * dt;
         }
-        if(output[0]>0.5 && output[0]<=0.75){
-            mode2=3;
-        }
-        if(output[0]>0.75 && output[0]<=0.8025){
-            mode2=1;
-        }
-        if(output[0]>0.8025 && output[0]<=1){
-            mode2=2;
-        }
     }
 
     /**
@@ -86,8 +76,6 @@ public class Enemy extends Body {
     public void studyTheShitOuttaDat(){
         if(succesRate<1) {
             input[0] = getDistanceToPlayer();
-            input[1] = player.getMode();
-            input[2] = player.getMode2();
             for (int i = 0; i < hidden.length; i++) {
                 hidden[i] = input[0];
             }

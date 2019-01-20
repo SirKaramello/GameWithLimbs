@@ -24,7 +24,7 @@ public class ProgramController {
     private SoundController soundController;
     private Body body;
     private Background bg;
-    private List<Enemy> enemies;
+    private Enemy enemies;
 
     /**
      * Konstruktor
@@ -37,9 +37,7 @@ public class ProgramController {
         this.uiController = uiController;
         body=new Body(uiController);
         bg=new Background(body, uiController);
-        enemies= new List();
-        enemies.append(new Enemy(uiController,body));
-        enemies.toFirst();
+        enemies= new Enemy(uiController,body);
     }
 
     /**
@@ -49,9 +47,8 @@ public class ProgramController {
         programTimer = 0;
         // ******************************************* Ab hier euer eigener Code! *******************************************
         uiController.registerObject(bg);
-        uiController.registerObject(enemies.getContent());
+        uiController.registerObject(enemies);
         uiController.registerObject(body);
-        uiController.registerObject(enemies.getContent());
         timer = 0;
     }
 
