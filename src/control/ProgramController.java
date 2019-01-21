@@ -7,6 +7,7 @@ import akkgframework.model.abitur.datenstrukturen.List;
 import model.Background;
 import model.Body;
 import model.Enemy;
+import model.Shop;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -25,6 +26,7 @@ public class ProgramController {
     private Body body;
     private Background bg;
     private Enemy enemies;
+    private Shop shop;
 
     /**
      * Konstruktor
@@ -39,6 +41,7 @@ public class ProgramController {
         bg=new Background(body, uiController);
         enemies= new Enemy(uiController,body);
         body.meetEnemy(enemies);
+        shop = new Shop(uiController);
     }
 
     /**
@@ -50,6 +53,7 @@ public class ProgramController {
         uiController.registerObject(bg);
         uiController.registerObject(enemies);
         uiController.registerObject(body);
+        uiController.registerObject(shop);
         timer = 0;
     }
 
