@@ -38,6 +38,7 @@ public class ProgramController {
         body=new Body(uiController);
         bg=new Background(body, uiController);
         enemies= new Enemy(uiController,body);
+        body.meetEnemy(enemies);
     }
 
     /**

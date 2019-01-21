@@ -1,7 +1,6 @@
 package model;
 
 import akkgframework.control.fundamental.UIController;
-import akkgframework.model.abitur.datenstrukturen.Queue;
 import akkgframework.model.fundamental.GraphicalObject;
 import akkgframework.model.abitur.datenstrukturen.List;
 import akkgframework.model.fundamental.Tileset;
@@ -12,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.Scanner;
 
 public class Body extends GraphicalObject {
 
@@ -28,7 +26,7 @@ public class Body extends GraphicalObject {
     protected Tileset body , fight, stand;
     protected UIController uic;
     protected BufferedImage[] bars;
-    private Enemy enemy;
+    protected Body enemy;
     private List<Weapon> inventory;
 
     //0=hp 1=stamina 2=speed 3=strength 4=resistance
@@ -36,8 +34,9 @@ public class Body extends GraphicalObject {
         hitbox=new double[4];
         uic=uiController;
         stats=new int[6];
-        width=20;height=width*2;
         body=new Tileset("assets/images/runningb.png",256,360);
+        width=256/2;
+        height=360;
         fight=new Tileset("assets/images/fighting.png",256,360);
         stand= new Tileset("assets/images/stan.png",256,360);
         bars=new BufferedImage[2];
@@ -143,18 +142,7 @@ public class Body extends GraphicalObject {
         if(stats[0]<=0){
             mode="boom";
         }
-        if(mode2.equals("fightE") || mode2.equals("fightS")) {
-            if (stats[1] > 0) {
-                stats[1] -= 10 * 0.5 * dt;
-            } else {
-                mode2 = "stand";
-            }
-            if (time >= 4 && time < 5) {
-                hitbox((int) (x + fight.getTile((int) (time), 0).getWidth() / 2), y + 10, 75, 20);
-            } else if (time >= 7 && time < 8) {
-                hitbox((int) (x + fight.getTile((int) (time), 0).getWidth() / 2), y + fight.getTile((int) (time), 0).getHeight(), 75, 20);
-            }
-        }
+        fighting(dt);
         if(mode2.equals("stand") && stats[1]<bars[1].getWidth()) {
             stats[1]+=32*dt;
         }
@@ -170,11 +158,37 @@ public class Body extends GraphicalObject {
         System.out.println(stats[1]);
     }
 
+    public void fighting(double dt){
+        if(mode2.equals("fightE") || mode2.equals("fightS")) {
+            if (stats[1] > 0) {
+                stats[1] -= 10 * 0.5 * dt;
+            } else {
+                mode2 = "stand";
+            }
+            if (time >= 4 && time < 5) {
+                hitbox((int) (x + fight.getTile((int) (time), 0).getWidth() / 2), y + 10, 75, 20);
+                System.out.println("JAAAA");
+            } else if (time >= 7 && time < 8) {
+                hitbox((int) (x + fight.getTile((int) (time), 0).getWidth() / 2), y + fight.getTile((int) (time), 0).getHeight(), 75, 20);
+            }
+            if(hitbox[0]+hitbox[2]>enemy.getX() && hitbox[0]<enemy.getX()+enemy.getWidth() && hitbox[1]+hitbox[3]>enemy.getY() && hitbox[1]<enemy.getY()+enemy.getHeight() ){
+                enemy.setHp(enemy.getHP()-enemy.getStrength()/getResistance());
+                System.out.println("ist trueeee");
+            }
+        }
+    }
+
     public boolean checkIfBodyIsInArena(){
-       //if()
+        if(y<=400 || y>=1000){
+            mode="falling";
+            return true;
+        }
         return false;
     }
 
+    public void meetEnemy(Enemy en){
+        enemy=en;
+    }
 
     /**
      *
@@ -249,7 +263,6 @@ public class Body extends GraphicalObject {
             for(int i=0;i<save.length && fileInputStream.available()>0;i++){
                 save[i] = (char) (fileInputStream.read());
             }
-            System.out.println(save);
         }catch (Exception e){
             System.out.println("Konnte nicht gespeichert werden");
         }

@@ -53,9 +53,8 @@ public class Background extends GraphicalObject {
     public void update(double dt) {
         cx=player.getX();
         cy=player.getY()-500;
-        if(player.getX()+player.getWidth()/2<-100){
-            player.setMode("falling");
-            mode="death";
+        if(player.getX()<-100){
+            player.setX(-100);
         }
         if(cy<=-400){
             cy=-400;

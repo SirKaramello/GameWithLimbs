@@ -15,21 +15,18 @@ public class Enemy extends Body {
     private boolean lel;
 
     //Referenzen
-    private Body player;
     private GraphicsEnvironment gd;
 
     /**
      * Konstruktor der Klasse Enemy
      * @param uiController der UiController der übergeben wird beim Methodenaufruf , yey.
      */
-    public Enemy(UIController uiController, Body player){
+    public Enemy(UIController uiController , Body enemy){
         super(uiController);
         hidden=new double[3];
         output=new double[3];
         input=new double[3];
-        x=player.getX();
-        y=player.getY();
-        this.player=player;
+        this.enemy=enemy;
         gen=1;
     }
 
@@ -55,7 +52,7 @@ public class Enemy extends Body {
             time=0;
         }
         if(output[0]<=0.25) {
-            double tan = Math.atan2(player.getY()+player.getHeight() - y+height, player.getX()+player.getWidth() - x+width);
+            double tan = Math.atan2(enemy.getY() - y, enemy.getX() - x);
             x += Math.cos(tan) * stats[2] * dt;
             y += Math.sin(tan) * stats[2] * dt;
         }
@@ -67,6 +64,8 @@ public class Enemy extends Body {
             x += Math.cos(tan) * stats[2] * dt;
             y += Math.sin(tan) * stats[2] * dt;
         }
+        mode2="fightE";
+        fighting(dt);
     }
 
     /**
@@ -79,7 +78,7 @@ public class Enemy extends Body {
                 hidden[i] = input[0];
             }
         }
-        if(player.getStat(0)<=0){
+        if(enemy.getStat(0)<=0){
             succesRate=succesRate*1.25;
         }
         if(stats[0]<=0){
@@ -92,7 +91,7 @@ public class Enemy extends Body {
      * @return gibt die Distanz des Spielers zurück
      */
     public double getDistanceToPlayer(){
-        return Math.sqrt(Math.pow(x-player.getX(),2)+Math.pow(y-player.getY(),2));
+        return Math.sqrt(Math.pow(x-enemy.getX(),2)+Math.pow(y-enemy.getY(),2));
     }
 
     /**
