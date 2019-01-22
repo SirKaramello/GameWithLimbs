@@ -73,4 +73,6 @@ public class ProgramController {
         timer = timer - dt;
     }
 
+    public void buyUpgrade(){
+    }
 }

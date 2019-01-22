@@ -8,7 +8,7 @@ public class AssassinsDagger extends Weapon {
         setwHp(-(body.getHP()/8));
         setwStamina((body.getStamina()/2));
         setwSpeed(body.getSpeed());
-        //setwResistance();
-        //setwStrength();
+        setwResistance(-body.getResistance()/2);
+        setwStrength(-body.getStrength()/3);
     }
 }

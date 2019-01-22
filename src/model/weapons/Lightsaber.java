@@ -8,8 +8,8 @@ public class Lightsaber extends Weapon {
             setwHp(0);
             setwStamina((body.getStamina()));
             setwSpeed(-(body.getSpeed()));
-            //setwResistance();
-            //setwStrength();
+            setwResistance(body.getResistance());
+            setwStrength(body.getStrength());
     }
 
 }

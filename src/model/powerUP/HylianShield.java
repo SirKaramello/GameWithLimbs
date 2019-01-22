@@ -12,7 +12,8 @@ public class HylianShield extends PowerUP {
         setuHp(body.getHP());
         setuStamina(-(body.getStamina()/8));
         setuSpeed(-(body.getSpeed()/8));
-        //resistance und strength fehlen
+        setuResistance(body.getResistance());
+        setuStrength(body.getStrength());
     }
 
 }

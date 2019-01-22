@@ -8,7 +8,6 @@ import model.Body;
 public class EqualFuel extends PowerUP{
     public EqualFuel(Body body){
         setuBody(body);
-        //setuStrength();
-
+        setuStrength(body.getStrength()*3);
     }
 }

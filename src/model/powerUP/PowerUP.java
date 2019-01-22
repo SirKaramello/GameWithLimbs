@@ -2,6 +2,8 @@ package model.powerUP;
 
 import model.Body;
 
+/** nicht in dieser klasse weiterarbeiten, es wird umverlagert zu Items */
+
 public abstract class PowerUP {
 
     private Body uBody;

@@ -2,7 +2,9 @@ package model.weapons;
 
 import model.Body;
 
-public abstract class Weapon {
+/** nicht in dieser klasse weiterarbeiten, es wird umverlagert zu Items */
+
+public class Weapon {
 
     private Body wBody;
     private int wHp;
@@ -10,6 +12,7 @@ public abstract class Weapon {
     private int wSpeed;
     private int wStrength;
     private int wResistance;
+
 
     public Body getwBody() {
         return wBody;
@@ -58,4 +61,5 @@ public abstract class Weapon {
     public void setwResistance(int wResistance) {
         this.wResistance = wResistance;
     }
+
 }

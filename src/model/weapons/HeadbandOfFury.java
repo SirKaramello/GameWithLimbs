@@ -8,7 +8,7 @@ public class HeadbandOfFury extends Weapon{
         setwHp(body.getHP());
         setwStamina(body.getStamina());
         setwSpeed(body.getSpeed());
-        //setwResistance();
-        //setwStrength();
+        setwResistance(body.getResistance());
+        setwStrength(body.getStrength());
     }
 }

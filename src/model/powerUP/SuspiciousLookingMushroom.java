@@ -8,6 +8,7 @@ public class SuspiciousLookingMushroom extends PowerUP {
         setuHp(-(body.getHP()/8));
         setuStamina((body.getStamina()/4));
         setuSpeed(body.getSpeed());
-        //resistance und strength fehlen
+        setuResistance(-(body.getResistance())/8);
+        setuStrength(body.getStrength());
     }
 }
