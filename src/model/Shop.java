@@ -27,11 +27,11 @@ public class Shop extends GraphicalObject {
     @Override
     public void draw(DrawTool drawTool) {
         super.draw(drawTool);
-        drawTool.drawImage(icon,100,100);
+        drawTool.drawImage(icon,100,80);
     }
 
     public void drawShopShield(DrawTool drawTool){
-        drawTool.drawImage(shields,0,0);
+        drawTool.drawImage(shields,550,250);
     }
 
     public void drawShopWeapon(DrawTool drawTool){
@@ -39,6 +39,6 @@ public class Shop extends GraphicalObject {
     }
 
     public void drawShopPotions(DrawTool drawTool){
-        drawTool.drawImage(potions,0,0);
+        drawTool.drawImage(potions,550,250);
     }
 }

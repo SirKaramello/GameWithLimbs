@@ -20,6 +20,7 @@ public class Background extends GraphicalObject {
     private PointerInfo a;
     private GraphicsEnvironment gd;
     private Shop shop;
+    private int currentshop;
 
     /**
      * Der Konstruktor der Klasse Background
@@ -34,6 +35,7 @@ public class Background extends GraphicalObject {
         images[0]= createNewImage("assets/images/wip.png");
         images[1]=createNewImage("assets/images/menue.png");
         shop=new Shop(uiC);
+        currentshop = 1;
     }
 
     /**
@@ -52,7 +54,11 @@ public class Background extends GraphicalObject {
             shop.draw(drawTool);
         }
         if(mode.equals("shop")){
-            shop.drawShopWeapon(drawTool);
+            switch (currentshop){
+                case 1: shop.drawShopWeapon(drawTool); break;
+                case 2: shop.drawShopPotions(drawTool); break;
+                case 3: shop.drawShopShield(drawTool); break;
+            }
         }
     }
 
@@ -105,9 +111,23 @@ public class Background extends GraphicalObject {
     }
 
     public void mousePressed(MouseEvent e){
-        if(mouseX>10 && mouseX<200 && mouseY>100 && mouseY<200 && e.getButton()==1){
+        if(mouseX>10 && mouseX<600 && mouseY>100 && mouseY<240 && e.getButton()==1 && mode.equals("menue")){
             mode="shop";
         }
+        if(mode.equals("shop")) {
+            if (mouseY > 785 && mouseY < 875){
+                if (mouseX > 555 && mouseX < 655) {
+                    currentshop = 1;
+                }
+                if (mouseX > 655 && mouseX < 755) {
+                    currentshop = 2;
+                }
+                if (mouseX > 755 && mouseX < 855){
+                    currentshop = 3;
+                }
+            }
+        }
+
     }
 
 }
