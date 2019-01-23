@@ -1,6 +1,7 @@
 package model;
 
 import akkgframework.control.fundamental.UIController;
+import akkgframework.model.abitur.datenstrukturen.Queue;
 import akkgframework.model.fundamental.GraphicalObject;
 import akkgframework.model.abitur.datenstrukturen.List;
 import akkgframework.model.fundamental.Tileset;
@@ -28,6 +29,13 @@ public class Body extends GraphicalObject {
     protected BufferedImage[] bars;
     protected Body enemy;
     private List<Weapon> inventory;
+    private Queue[] upgrades = new Queue[4];
+    private Queue<UpgradeInfos> healthPath;
+    private Queue<UpgradeInfos> staminaPath;
+    private Queue<UpgradeInfos> speedPath;
+    private Queue<UpgradeInfos> strengthPath;
+    private Queue<UpgradeInfos> resistancePath;
+    private int upgrade;
 
     //0=hp 1=stamina 2=speed 3=strength 4=resistance
     public Body(UIController uiController){
@@ -48,6 +56,15 @@ public class Body extends GraphicalObject {
         mode2="none";
         getSaveData();
         handleSave();
+
+        upgrades[0] = healthPath;
+        upgrades[1] = staminaPath;
+        upgrades[2] = speedPath;
+        upgrades[3] = strengthPath;
+        upgrades[4] = resistancePath;
+        for(int i = 0;i < 4;i++){
+           // upgrades[0].enqueue();
+        }
     }
 
     public void draw(DrawTool drawTool){
