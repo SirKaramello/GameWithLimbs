@@ -8,6 +8,7 @@ import model.Background;
 import model.Body;
 import model.Enemy;
 import model.Shop;
+import model.powerUP.*;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -26,7 +27,6 @@ public class ProgramController {
     private Body body;
     private Background bg;
     private Enemy enemies;
-    private Shop shop;
 
     /**
      * Konstruktor
@@ -41,7 +41,6 @@ public class ProgramController {
         bg=new Background(body, uiController);
         enemies= new Enemy(uiController,body);
         body.meetEnemy(enemies);
-        shop = new Shop(uiController);
     }
 
     /**
@@ -52,8 +51,6 @@ public class ProgramController {
         // ******************************************* Ab hier euer eigener Code! *******************************************
         uiController.registerObject(bg);
         uiController.registerObject(enemies);
-        uiController.registerObject(body);
-        uiController.registerObject(shop);
         timer = 0;
     }
 
@@ -73,6 +70,72 @@ public class ProgramController {
         timer = timer - dt;
     }
 
-    public void buyUpgrade(){
+    /*public void itemDrops() {
+        int itemOfChoice;
+        if (droppedItems < 6) {
+            itemOfChoice = (int) (1 + (Math.random() * 2));
+        } else {
+            itemOfChoice = (int) (1 + (Math.random() * 4));
+        }
+        if (itemOfChoice == 1) {
+            new SuspiciousLookingMushroom(body);
+            droppedItems++;
+        }
+
+        if (itemOfChoice == 2) {
+            new HylianShield(body);
+            droppedItems++;
+        }
+
+        if (itemOfChoice == 3) {
+            new MenacingLookingClock(body);
+            droppedItems++;
+        }
+
+        if (itemOfChoice == 4) {
+            new EqualFuel(body);
+            droppedItems++;
+        }
     }
+
+    public void updateItemDrops(double dt) {
+        itemTimer = itemTimer + (int) dt;
+        if (dropTime <= itemTimer) {
+            itemDrops();
+            dropTime = dropTime + 10;
+        }
+    }
+
+    public void updateSouls(Body body) {
+        // if()
+        body.setSouls(body.getSouls() + 1);
+    }
+
+    public void pickUpPowerUp(PowerUP pU) {
+        powerUpInventory.push(pU);
+    }
+
+
+
+    public void usePowerUP() {
+        if (!powerUpInventory.isEmpty()) {
+            PowerUP powerUpUse = powerUpInventory.top();
+            if (powerUpUse.getPowerUpType() < 3) {
+                body.setHP(body.getHP() + powerUpUse.getuHp());
+                body.setResistance(body.getResistance() + powerUpUse.getuResistance());
+                body.setSpeed(body.getSpeed() + powerUpUse.getuSpeed());
+                body.setStamina(body.getStamina() + powerUpUse.getuStamina());
+            } else {
+                if (powerUpUse.getPowerUpType() == 4) {
+                    powerUpUse.updateTimeStopCount(powerUpUse);
+                }
+
+            }
+            powerUpInventory.pop();
+        }
+
+    }
+
+    public void buyUpgrade(){
+    }*/
 }

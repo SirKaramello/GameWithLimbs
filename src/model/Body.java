@@ -50,12 +50,12 @@ public class Body extends GraphicalObject {
         handleSave();
     }
 
+
     /**
-     * Zeichnet jegliche Animation des Körpers mit einem Tileset
-     * @param drawTool ist das werkzeug zum zeichnen von Objekten
+     * Zeichnet den wunderbaren , großartigen , unglaublichen Spieler
+     * @param drawTool das Werkzeug für das Zeichnen
      */
-    @Override
-    public void draw(DrawTool drawTool) {
+    public void drawPlayer(DrawTool drawTool){
         for(int i=0;i<stats[0];i++){
             drawTool.setCurrentColor(0,70,100,255);
             drawTool.drawFilledRectangle(10+i,y,1,32);
@@ -66,15 +66,6 @@ public class Body extends GraphicalObject {
         }
         drawTool.drawImage(bars[0],10,y);
         drawTool.drawImage(bars[1],10,y+30);
-        drawPlayer(drawTool);
-    }
-
-    /**
-     * Zeichnet den wunderbaren , großartigen , unglaublichen Spieler
-     * @param drawTool das Werkzeug für das Zeichnen
-     */
-    public void drawPlayer(DrawTool drawTool){
-        System.out.println(mode +" 2 : "+mode2);
         if(mode.equals("right")) {
             drawTool.drawImage(body.getTile((int) time, 0), x, y);
         }
@@ -107,13 +98,7 @@ public class Body extends GraphicalObject {
         }
     }
 
-    /**
-     * Ist für die verschiedenen Modi des Spielers verantwortlich , je nach dem , welche Taste man drückt , wird ein anderer
-     * Modus eingestellt
-     * @param dt Zeit seit dem letzten Aufruf der Methode
-     */
-    @Override
-    public void update(double dt) {
+    public void live(double dt){
         time+=10*dt;
         System.out.println(mode);
         if(!uic.isKeyDown(KeyEvent.VK_D) && !uic.isKeyDown(KeyEvent.VK_S) && !uic.isKeyDown(KeyEvent.VK_W) && !uic.isKeyDown(KeyEvent.VK_A) && !mode.equals("fight")){
