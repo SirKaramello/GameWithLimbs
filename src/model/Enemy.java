@@ -36,7 +36,7 @@ public class Enemy extends Body {
      */
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawFilledRectangle(x,y,50,50);
+        super.draw(drawTool);
     }
 
     /**
