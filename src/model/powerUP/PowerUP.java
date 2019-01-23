@@ -9,9 +9,13 @@ public abstract class PowerUP {
     private Body uBody;
     private int uHp;
     private int uStamina;
+    private int powerUpType;
     private int uSpeed;
     private int uStrength;
     private int uResistance;
+    private double TimeStopCount;
+    private int amountOfST;
+    private boolean STOP;
 
     public Body getuBody() {
         return uBody;
@@ -61,7 +65,41 @@ public abstract class PowerUP {
         this.uResistance = uResistance;
     }
 
+    public int getPowerUpType() {
+        return powerUpType;
+    }
 
+    public void setPowerUpType(int powerUpType) {
+        this.powerUpType = powerUpType;
+    }
+
+    public double getTimeStopCount() {
+        return TimeStopCount;
+    }
+
+    public void updateTimeStopCount(PowerUP p) {
+        TimeStopCount = p.getAmountOfST();
+    }
+
+    public int getAmountOfST() {
+        return amountOfST;
+    }
+
+    public void setAmountOfST(int amountOfST) {
+        this.amountOfST = amountOfST;
+    }
+
+    public boolean isSTOP() {
+        return STOP;
+    }
+
+    public void setSTOP(boolean STOP) {
+        this.STOP = STOP;
+    }
+
+    public void setTimeStopCount(double timeStopCount) {
+        TimeStopCount = timeStopCount;
+    }
 
 }
 

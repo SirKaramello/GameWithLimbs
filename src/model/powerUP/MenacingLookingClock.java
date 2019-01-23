@@ -15,4 +15,19 @@ public class MenacingLookingClock  extends PowerUP{
         setuSpeed(body.getSpeed()/8);
         this.timeStopCount = 3 + 0.25 * body.getStamina();
     }
+
+    public void update(double dt) {
+        double timeStop = this.getTimeStopCount();
+        while (this.getTimeStopCount() < 0) {
+            if (!this.isSTOP()) {
+                this.setSTOP(false);
+            }
+            while (this.getTimeStopCount() >= 0) {
+                if (!this.isSTOP()) {
+                    this.setSTOP(true);
+                }
+            }
+        }
+    }
+
 }
