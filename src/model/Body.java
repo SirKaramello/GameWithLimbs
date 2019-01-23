@@ -50,6 +50,13 @@ public class Body extends GraphicalObject {
         handleSave();
     }
 
+    public void draw(DrawTool drawTool){
+        drawPlayer(drawTool);
+    }
+
+    public void update(double dt){
+        live(dt);
+    }
 
     /**
      * Zeichnet den wunderbaren , großartigen , unglaublichen Spieler
@@ -98,6 +105,10 @@ public class Body extends GraphicalObject {
         }
     }
 
+    /**
+     * Bewegungen des Spielers und alles was er zum Leben braucht
+     * @param dt Zeit seit dem letzten Aufruf der Methode
+     */
     public void live(double dt){
         time+=10*dt;
         System.out.println(mode);
@@ -143,6 +154,10 @@ public class Body extends GraphicalObject {
         System.out.println(stats[1]);
     }
 
+    /**
+     * Hitbox der Faust und generelles Kämpfchen
+     * @param dt
+     */
     public void fighting(double dt){
         if(mode2.equals("fightE") || mode2.equals("fightS")) {
             if (stats[1] > 0) {
@@ -163,6 +178,10 @@ public class Body extends GraphicalObject {
         }
     }
 
+    /**
+     * Checkt ob der Spieler in der Arena ist und wenn dann setzt er denn Mode auf falling
+     * @return gibt true zurück wenn der Spieler in der Arena ist
+     */
     public boolean checkIfBodyIsInArena(){
         if(y<=400 || y>=1000){
             mode="falling";
@@ -171,6 +190,10 @@ public class Body extends GraphicalObject {
         return false;
     }
 
+    /**
+     * Der Spieler trifft den Gegner
+     * @param en der übergebene Gegner
+     */
     public void meetEnemy(Enemy en){
         enemy=en;
     }
@@ -205,6 +228,10 @@ public class Body extends GraphicalObject {
         }
     }
 
+    /**
+     * Wenn die Maus losgelassen wird wird es aktiviert
+     * @param e mouseEvent
+     */
     public void mouseReleased(MouseEvent e){
         mode2="stand";
     }
@@ -219,22 +246,43 @@ public class Body extends GraphicalObject {
         }
     }
 
+    /**
+     * Gibt den Stat zurück den man haben will
+     * @param i gibt den Index an
+     * @return
+     */
     public int getStat(int i){
         return stats[i];
     }
 
+    /**
+     * Setzt den Modus des Spielers zurück
+     * @param mode
+     */
     public void setMode(String mode) {
         this.mode = mode;
     }
 
+    /**
+     * Gibt den Modus des Spielers zurück
+     * @return
+     */
     public String getMode(){
         return mode;
     }
 
+    /**
+     * Gibt den 2. Modus des Spielers zurück der für Kämpfen un rollen zustädnig ist
+     * @return
+     */
     public String getMode2(){
         return mode2;
     }
 
+    /**
+     * Diese wunderbare Methode liest eine Datei und speichert dann diese in einzelene Charaktere die dann
+     * auf dem save char Array gespeichert werden
+     */
     public void getSaveData(){
         try {
             FileReader reader = new FileReader("assets/data/save.txt");
@@ -253,6 +301,10 @@ public class Body extends GraphicalObject {
         }
     }
 
+    /**
+     * Diese Methode setzt die stats zu den die das letzte mal seit dem Aufruf des Programms existiert haben auf
+     * und packt die
+     */
     public void handleSave(){
         String tmp="";
         int j=1;

@@ -35,7 +35,7 @@ public class Shop extends GraphicalObject {
     }
 
     public void drawShopWeapon(DrawTool drawTool){
-        drawTool.drawImage(weappons,0,0);
+        drawTool.drawImage(weappons,550,250);
     }
 
     public void drawShopPotions(DrawTool drawTool){

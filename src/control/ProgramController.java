@@ -51,6 +51,7 @@ public class ProgramController {
         // ******************************************* Ab hier euer eigener Code! *******************************************
         uiController.registerObject(bg);
         uiController.registerObject(enemies);
+        uiController.registerObject(body);
         timer = 0;
     }
 

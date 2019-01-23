@@ -6,6 +6,7 @@ import akkgframework.view.DrawTool;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 public class Background extends GraphicalObject {
@@ -44,7 +45,6 @@ public class Background extends GraphicalObject {
         if(mode.equals("fight")) {
             drawTool.camera(100,-cy/3);
             drawTool.drawImage(images[0], -100, -450);
-            player.drawPlayer(drawTool);
         }
         if(mode.equals("menue")){
             drawTool.camera(0,0);
@@ -82,8 +82,6 @@ public class Background extends GraphicalObject {
         mouseX=a.getLocation().getX();
         mouseY=a.getLocation().getY();
         System.out.println(mouseX+" / "+mouseY);
-        player.live(dt);
-        mouseCoordinatos();
     }
 
     public void mouseCoordinatos(){
@@ -105,4 +103,11 @@ public class Background extends GraphicalObject {
             mode="fight";
         }
     }
+
+    public void mousePressed(MouseEvent e){
+        if(mouseX>10 && mouseX<200 && mouseY>100 && mouseY<200 && e.getButton()==1){
+            mode="shop";
+        }
+    }
+
 }
