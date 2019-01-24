@@ -13,6 +13,10 @@ public class Background extends GraphicalObject {
 
     private String mode;
     private double mouseX,mouseY,time,cx,cy;
+    private int currentshop;
+    private int frameX;
+    private int frameY;
+    private boolean frameActive;
 
     private BufferedImage[] images;
     private UIController uic;
@@ -20,7 +24,8 @@ public class Background extends GraphicalObject {
     private PointerInfo a;
     private GraphicsEnvironment gd;
     private Shop shop;
-    private int currentshop;
+
+
 
     /**
      * Der Konstruktor der Klasse Background
@@ -36,6 +41,10 @@ public class Background extends GraphicalObject {
         images[1]=createNewImage("assets/images/menue.png");
         shop=new Shop(uiC);
         currentshop = 1;
+        frameX = 0;
+        frameY = 0;
+        frameActive = false;
+
     }
 
     /**
@@ -59,6 +68,9 @@ public class Background extends GraphicalObject {
                 case 2: shop.drawShopPotions(drawTool); break;
                 case 3: shop.drawShopShield(drawTool); break;
             }
+        }
+        if(frameActive){
+            shop.drawShopFrame(drawTool,frameX,frameY);
         }
     }
 
@@ -118,14 +130,66 @@ public class Background extends GraphicalObject {
             if (mouseY > 785 && mouseY < 875){
                 if (mouseX > 555 && mouseX < 655) {
                     currentshop = 1;
+                    frameActive = false;
                 }
                 if (mouseX > 655 && mouseX < 755) {
                     currentshop = 2;
+                    frameActive = false;
                 }
                 if (mouseX > 755 && mouseX < 855){
                     currentshop = 3;
+                    frameActive = false;
                 }
             }
+            if (mouseY > 400 && mouseY < 560 && mouseX > 600 && mouseX < 1000){
+                if (mouseY < 470){
+                    if (mouseX < 680){
+                        frameX = 600;
+                        frameY = 380;
+                        frameActive = true;
+                    }
+                    if (mouseX > 708 && mouseX<780){
+                        frameX = 708;
+                        frameY = 380;
+                        frameActive = true;
+                    }
+                    if (mouseX > 815 && mouseX<890){
+                        frameX = 815;
+                        frameY = 380;
+                        frameActive = true;
+                    }
+                    if (mouseX > 918){
+                        frameX = 918;
+                        frameY = 380;
+                        frameActive = true;
+                    }
+
+                }
+                if (mouseY > 500){
+                    if (mouseX < 680){
+                        frameX = 600;
+                        frameY = 485;
+                        frameActive = true;
+                    }
+                    if (mouseX > 708 && mouseX<780){
+                        frameX = 708;
+                        frameY = 485;
+                        frameActive = true;
+                    }
+                    if (mouseX > 815 && mouseX<890){
+                        frameX = 815;
+                        frameY = 485;
+                        frameActive = true;
+                    }
+                    if (mouseX > 918){
+                        frameX = 918;
+                        frameY = 485;
+                        frameActive = true;
+                    }
+
+                }
+            }
+
         }
 
     }

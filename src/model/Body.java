@@ -29,7 +29,7 @@ public class Body extends GraphicalObject {
     protected BufferedImage[] bars;
     protected Body enemy;
     private List<Weapon> inventory;
-    private Queue[] upgrades = new Queue[4];
+    private Queue[] upgrades = new Queue[5];
     private Queue<UpgradeInfos> healthPath;
     private Queue<UpgradeInfos> staminaPath;
     private Queue<UpgradeInfos> speedPath;

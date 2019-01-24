@@ -14,6 +14,7 @@ public class Shop extends GraphicalObject {
     protected BufferedImage shields;
     protected BufferedImage potions;
     protected BufferedImage weappons;
+    protected BufferedImage frame;
 
     public Shop(UIController uiController) {
         uic=uiController;
@@ -22,6 +23,7 @@ public class Shop extends GraphicalObject {
         shields = createNewImage("assets/images/Shop/Shop Toll Schilder.png");
         potions = createNewImage("assets/images/Shop/Shop Toll Tränke.png");
         weappons = createNewImage("assets/images/Shop/Shop Toll Waffen.png");
+        frame = createNewImage("assets/images/Shop/Fetter Rahmen.png");
     }
 
     @Override
@@ -40,5 +42,9 @@ public class Shop extends GraphicalObject {
 
     public void drawShopPotions(DrawTool drawTool){
         drawTool.drawImage(potions,550,250);
+    }
+
+    public void drawShopFrame(DrawTool drawTool,int pX,int pY){
+        drawTool.drawImage(frame,pX,pY);
     }
 }
