@@ -16,6 +16,8 @@ public class Background extends GraphicalObject {
     private int currentshop;
     private int frameX;
     private int frameY;
+
+
     private boolean frameActive;
 
     private BufferedImage[] images;
@@ -64,7 +66,10 @@ public class Background extends GraphicalObject {
         }
         if(mode.equals("shop")){
             switch (currentshop){
-                case 1: shop.drawShopWeapon(drawTool); break;
+                case 1: shop.drawShopWeapon(drawTool);
+                        if(frameActive)
+                            shop.drawSpecifiedInfos(drawTool);
+                break;
                 case 2: shop.drawShopPotions(drawTool); break;
                 case 3: shop.drawShopShield(drawTool); break;
             }
@@ -130,14 +135,17 @@ public class Background extends GraphicalObject {
             if (mouseY > 785 && mouseY < 875){
                 if (mouseX > 555 && mouseX < 655) {
                     currentshop = 1;
+                    shop.setCurrentShopPage(0);
                     frameActive = false;
                 }
                 if (mouseX > 655 && mouseX < 755) {
                     currentshop = 2;
+                    shop.setCurrentShopPage(1);
                     frameActive = false;
                 }
                 if (mouseX > 755 && mouseX < 855){
                     currentshop = 3;
+                    shop.setCurrentShopPage(2);
                     frameActive = false;
                 }
             }
@@ -147,21 +155,25 @@ public class Background extends GraphicalObject {
                         frameX = 600;
                         frameY = 380;
                         frameActive = true;
+                        shop.setCurrentItem(0);
                     }
                     if (mouseX > 708 && mouseX<780){
                         frameX = 708;
                         frameY = 380;
                         frameActive = true;
+                        shop.setCurrentItem(1);
                     }
                     if (mouseX > 815 && mouseX<890){
                         frameX = 815;
                         frameY = 380;
                         frameActive = true;
+                        shop.setCurrentItem(2);
                     }
                     if (mouseX > 918){
                         frameX = 918;
                         frameY = 380;
                         frameActive = true;
+                        shop.setCurrentItem(3);
                     }
 
                 }
@@ -170,21 +182,25 @@ public class Background extends GraphicalObject {
                         frameX = 600;
                         frameY = 485;
                         frameActive = true;
+                        shop.setCurrentItem(4);
                     }
                     if (mouseX > 708 && mouseX<780){
                         frameX = 708;
                         frameY = 485;
                         frameActive = true;
+                        shop.setCurrentItem(5);
                     }
                     if (mouseX > 815 && mouseX<890){
                         frameX = 815;
                         frameY = 485;
                         frameActive = true;
+                        shop.setCurrentItem(6);
                     }
                     if (mouseX > 918){
                         frameX = 918;
                         frameY = 485;
                         frameActive = true;
+                        shop.setCurrentItem(7);
                     }
 
                 }
@@ -193,5 +209,4 @@ public class Background extends GraphicalObject {
         }
 
     }
-
 }
