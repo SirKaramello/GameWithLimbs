@@ -30,11 +30,11 @@ public class Body extends GraphicalObject {
     protected Body enemy;
     private List<Weapon> inventory;
     private Queue[] upgrades = new Queue[5];
-    private Queue<UpgradeInfos> healthPath;
-    private Queue<UpgradeInfos> staminaPath;
-    private Queue<UpgradeInfos> speedPath;
-    private Queue<UpgradeInfos> strengthPath;
-    private Queue<UpgradeInfos> resistancePath;
+    private Queue<UpgradeInfo> healthPath;
+    private Queue<UpgradeInfo> staminaPath;
+    private Queue<UpgradeInfo> speedPath;
+    private Queue<UpgradeInfo> strengthPath;
+    private Queue<UpgradeInfo> resistancePath;
     private int upgrade;
 
     //0=hp 1=stamina 2=speed 3=strength 4=resistance
@@ -56,15 +56,12 @@ public class Body extends GraphicalObject {
         mode2="none";
         getSaveData();
         handleSave();
-
         upgrades[0] = healthPath;
         upgrades[1] = staminaPath;
         upgrades[2] = speedPath;
         upgrades[3] = strengthPath;
         upgrades[4] = resistancePath;
-        for(int i = 0;i < 4;i++){
-           // upgrades[0].enqueue();
-        }
+        fillQueues();
     }
 
     public void draw(DrawTool drawTool){
@@ -401,6 +398,22 @@ public class Body extends GraphicalObject {
          */
         public void setY(double y) {
             this.y = y;
+        }
+    }
+
+    private void fillQueues(){
+        for(int i = 0;i < upgrades.length; i++){
+            UpgradeInfo upgradeHPSTR = new UpgradeInfo();
+            UpgradeInfo upgradeSTSPRE = new UpgradeInfo();
+            upgradeHPSTR.setAddedNumber(30*i);
+            upgradeSTSPRE.setAddedNumber(35*i);
+            upgradeHPSTR.setReqSouls(6*i);
+            upgradeSTSPRE.setReqSouls(5*i);
+            upgrades[0].enqueue(upgradeHPSTR);
+            upgrades[1].enqueue(upgradeSTSPRE);
+            upgrades[2].enqueue(upgradeSTSPRE);
+            upgrades[3].enqueue(upgradeHPSTR);
+            upgrades[4].enqueue(upgradeSTSPRE);
         }
     }
 

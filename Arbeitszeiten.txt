@@ -96,10 +96,10 @@
 |		       		|	           	
 --------------------------------------------------------------------------------------------------------------------
 |		       		|	           
-|	Muhamed Dautoski	|22.1.19 1 Stunde(    
-|		       		|	           
+|	Muhamed Dautoski	|22.1.19 1 Stunde (Plan Änderungen;Ideen mit anderen durchdacht)
+|		       		|23.1.19 1 Stunde (Queue weiter entwickelt)
+                                 24.1.19 1 Stunde (Queue weiter gemacht) 	          
 |--------------------------------------------------------------------------------------------------------------------	
-|			
 |	Simeon Schmitt	       	|	           21.1.19 1 Std (hinzufügen des Shops/der Grafiken)
 |				|		    23.1.19 1:30 Std  (Änderung am Shop/ erste Erstellung einer PPP)
 |		       		|	          24.2.19 2:15 Std (Verbesserung des SHops mit auswählen der Items und Erstellung des ZWeidimensionalen Arrays im Shop)
