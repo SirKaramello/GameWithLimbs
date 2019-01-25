@@ -70,8 +70,14 @@ public class Background extends GraphicalObject {
                         if(frameActive)
                             shop.drawSpecifiedInfos(drawTool);
                 break;
-                case 2: shop.drawShopPotions(drawTool); break;
-                case 3: shop.drawShopShield(drawTool); break;
+                case 2: shop.drawShopPotions(drawTool);
+                        if(frameActive)
+                            shop.drawSpecifiedInfos(drawTool);
+                break;
+                case 3: shop.drawShopShield(drawTool);
+                        if(frameActive)
+                            shop.drawSpecifiedInfos(drawTool);
+                break;
             }
         }
         if(frameActive){
@@ -121,9 +127,11 @@ public class Background extends GraphicalObject {
     public void keyPressed(int key) {
         if(key== KeyEvent.VK_M){
             mode="menue";
+            frameActive = false;
         }
         if(key== KeyEvent.VK_N){
             mode="fight";
+            frameActive = false;
         }
     }
 
