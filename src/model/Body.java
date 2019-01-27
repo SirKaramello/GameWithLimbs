@@ -287,6 +287,10 @@ public class Body extends GraphicalObject {
         return stats[5];
     }
 
+    public void setLire(int li){
+         stats[5] = li;
+    }
+
     public void setHp(int hp){
         stats[0]=hp;
     }

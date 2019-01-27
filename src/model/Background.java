@@ -112,6 +112,7 @@ public class Background extends GraphicalObject {
         mouseX=a.getLocation().getX();
         mouseY=a.getLocation().getY();
         System.out.println(mouseX+" / "+mouseY);
+
     }
 
     /**
@@ -163,11 +164,12 @@ public class Background extends GraphicalObject {
 
             if (mouseX > 1230 && mouseX < 1280 && mouseY > 700 && mouseY < 720 && frameActive){
                 Object[] options = { "BUY", "CANCEL" };
-                JOptionPane.showOptionDialog(null, "Do you want to buy " + 0 + " for " + 0 + " Lire ?", "Buy",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+                JOptionPane.showOptionDialog(null, "Do you want to buy " + shop.getTheCurrentShopItemName() + " for " + shop.getTheCurrentShopItemCost() + " Lire ?", "Buy",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                         null, options, options[0]);
-                if (options.equals("BUY")){
-
+                if (JOptionPane.YES_OPTION == 0){
+                    //in Inventar
+                    shop.gekauft();
                 }
             }
 

@@ -5,7 +5,7 @@ import akkgframework.model.fundamental.GraphicalObject;
 import java.awt.image.BufferedImage;
 
 
-public class Item extends GraphicalObject {
+public abstract class Item extends GraphicalObject {
 
     private Body uBody;
     private int powerUpType;
@@ -14,9 +14,11 @@ public class Item extends GraphicalObject {
     private boolean STOP;
     private String name;
     private int cost;
+    private Boolean bought;
 
     public Item(Body body){
         uBody=body;
+        bought = false;
     }
 
     private boolean isActive;
@@ -34,7 +36,7 @@ public class Item extends GraphicalObject {
     }
 
     public int getuStamina() {
-        return uBody.getStamina();
+        return uBody.getLire();
     }
 
     public int getuSpeed() {
@@ -46,7 +48,7 @@ public class Item extends GraphicalObject {
     }
 
     public void setuStamina(int uStamina) {
-        uBody.setStamina(uStamina);
+        uBody.setLire(uStamina);
     }
 
     public void setuSpeed(int uSpeed){
@@ -116,5 +118,20 @@ public class Item extends GraphicalObject {
     public void setCost(int cost) {
         this.cost = cost;
     }
+
+    public Boolean getBought() {
+        return bought;
+    }
+
+    public void setBought(Boolean bought) {
+        this.bought = bought;
+    }
+
+    public void createNew(){
+        bought = true;
+    }
+
+    public abstract void gotBought();
+
 }
 
