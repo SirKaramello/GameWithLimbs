@@ -25,9 +25,20 @@ public class Enemy extends Body {
         this.enemy=enemy;
         mode2="stand";
         mode="none";
+        setRandomStats();
         state="attack";
+        width=body.getTile(0,0).getWidth();
+        height=body.getTile(0,0).getHeight();
     }
 
+    /**
+     *
+     */
+    public void setRandomStats(){
+        for(int i=0;i<stats.length;i++){
+            stats[i]=(int)(10+Math.random()*300);
+        }
+    }
     /**
      * Zeichnet den Gegner
      * @param drawTool ist das Werkzeug zum zeichnen von Objekten
@@ -44,14 +55,10 @@ public class Enemy extends Body {
     @Override
     public void update(double dt) {
         if (bg != null && bg.getMode().equals("fight")) {
+            super.update(dt);
             time+=10*dt;
             if(time>=8){
                 time=0;
-            }
-            if (stats[2] <= 0) {
-                mode = "left";
-            } else {
-                mode = "right";
             }
             if (time >= 8) {
                 time = 0;
@@ -60,17 +67,27 @@ public class Enemy extends Body {
                 double tan = Math.atan2(enemy.getY() - y, enemy.getX() - x);
                 x += Math.cos(tan) * stats[2] * dt;
                 y += Math.sin(tan) * stats[2] * dt;
+                if(x<=enemy.getX()){
+                    mode="right";
+                }else {
+                    mode = "left";
+                }
             }
             if (lel) {
                 tan = Math.atan2(Math.random() * gd.getDefaultScreenDevice().getDisplayMode().getHeight() - y, Math.random() * gd.getDefaultScreenDevice().getDisplayMode().getWidth() - x);
+            }
+            if(enemy.collidesWith(enemy)){
+                mode2="fightE";
+                fighting(dt);
+            }else{
+                mode2="stand";
             }
             if (state.equals("flea")) {
                 lel = false;
                 x += Math.cos(tan) * stats[2] * dt;
                 y += Math.sin(tan) * stats[2] * dt;
             }
-            mode2 = "fightE";
-            fighting(dt);
+
         }
         if (stats[0] <= 20) {
             state = "flea";

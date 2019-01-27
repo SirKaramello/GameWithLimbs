@@ -17,24 +17,14 @@ public class Player extends Body {
 
     private Limb[] legs ,arms;
     private List<Item> inventory;
-    private Queue <UpgradeInfo> [] upgrades;
+    private Queue[] upgrades = new Queue[5];
     private Queue<UpgradeInfo> healthPath,staminaPath,speedPath,strengthPath,resistancePath;
-    private boolean qPressed,notAble,cantUpgrade;
 
     public Player(UIController uiController){
         super(uiController);
         inventory=new List<>();
         getSaveData();
         handleSave();
-        qPressed = false;
-        notAble = false;
-        cantUpgrade = false;
-        healthPath = new Queue<>();
-        staminaPath = new Queue<>();
-        speedPath = new Queue<>();
-        strengthPath = new Queue<>();
-        resistancePath = new Queue<>();
-        upgrades = new Queue[5];
         upgrades[0] = healthPath;
         upgrades[1] = staminaPath;
         upgrades[2] = speedPath;
@@ -45,16 +35,6 @@ public class Player extends Body {
 
     public void draw(DrawTool drawTool){
         super.draw(drawTool);
-        if(qPressed){
-            drawTool.drawText(x-20,y-105,"Drücke zwischen 1-5 um zu upgraden");
-            drawTool.drawText(x-20,y-85,"1:HP 2:Speed 3:Stamina 4:Strength 5:Resistance");
-        }
-        if(notAble){
-            drawTool.drawText(x-20,y-85,"Du hast nicht genug Souls gesammelt!");
-        }
-        if(cantUpgrade){
-            drawTool.drawText(x-20,y-85,"Du kannst diesen Wert nicht mehr upgraden!");
-        }
     }
 
     public void update(double dt){
@@ -151,33 +131,6 @@ public class Player extends Body {
         if(key==KeyEvent.VK_SPACE && stats[1]>0){
             mode2="roll";
         }
-        if(key==KeyEvent.VK_Q ){
-            qPressed = true;
-            cantUpgrade = false;
-            notAble = false;
-        }
-        if(qPressed ){
-            if(key==KeyEvent.VK_1){
-                doUpgrade(0);
-                qPressed = false;
-            }
-            if(key==KeyEvent.VK_2){
-                doUpgrade(1);
-                qPressed = false;
-            }
-            if(key==KeyEvent.VK_3){
-                doUpgrade(2);
-                qPressed = false;
-            }
-            if(key==KeyEvent.VK_4){
-                doUpgrade(3);
-                qPressed = false;
-            }
-            if(key==KeyEvent.VK_5){
-                doUpgrade(4);
-                qPressed = false;
-            }
-        }
     }
 
     /**
@@ -245,34 +198,13 @@ public class Player extends Body {
             upgradeSTSPRE.setAddedNumber(35*i);
             upgradeHPSTR.setReqSouls(6*i);
             upgradeSTSPRE.setReqSouls(5*i);
-            upgrades[0].enqueue(upgradeHPSTR);
-            upgrades[1].enqueue(upgradeSTSPRE);
-            upgrades[2].enqueue(upgradeSTSPRE);
-            upgrades[3].enqueue(upgradeHPSTR);
-            upgrades[4].enqueue(upgradeSTSPRE);
+            // upgrades[0].enqueue(upgradeHPSTR);
+            // upgrades[1].enqueue(upgradeSTSPRE);
+            // upgrades[2].enqueue(upgradeSTSPRE);
+            // upgrades[3].enqueue(upgradeHPSTR);
+            // upgrades[4].enqueue(upgradeSTSPRE);
         }
     }
 
-    private void doUpgrade(int i) {
-        if (!upgrades[i].isEmpty()) {
-            cantUpgrade = false;
-            notAble = false;
-            int upg = 0;
-            int req = 0;
-            upg = upgrades[i].front().getAddedNumber();
-            req = upgrades[i].front().getReqSouls();
-            if (stats[5] > req) {
-                stats[i] = stats[i] + upg;
-                upgrades[i].dequeue();
-                stats[5] = stats[5] - req;
-            }
-            if (stats[5] < req) {
-                notAble = true;
-            }
-        }else{
-            qPressed = false;
-            cantUpgrade = true;
-        }
-    }
 
 }
