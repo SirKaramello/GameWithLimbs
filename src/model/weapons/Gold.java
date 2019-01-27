@@ -2,11 +2,11 @@ package model.weapons;
 
 import model.Item;
 
-public class gold extends Item {
-    public gold(){
+public class Gold extends Item {
+    public Gold(){
         setuStamina(getuStamina()-300);
         setuStrength(80);
-        setName("gold");
+        setName("Gold");
         setCost(300);
     }
 

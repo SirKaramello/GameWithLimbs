@@ -139,6 +139,9 @@ public class Background extends GraphicalObject {
         if(mouseX>10 && mouseX<600 && mouseY>100 && mouseY<240 && e.getButton()==1 && mode.equals("menue")){
             mode="shop";
         }
+        /**if(mouseX>10 && mouseX<600 && mouseY>340 && mouseY<480 && mode.equals("menue")){
+
+        }*/
         if(mode.equals("shop")) {
             if (mouseY > 785 && mouseY < 875){
                 if (mouseX > 555 && mouseX < 655) {
@@ -160,7 +163,7 @@ public class Background extends GraphicalObject {
 
             if (mouseX > 1230 && mouseX < 1280 && mouseY > 700 && mouseY < 720 && frameActive){
                 Object[] options = { "BUY", "CANCEL" };
-                JOptionPane.showOptionDialog(null, "Do you want to buy " + 0 + " for " + 0 + " Stemina ?", "Buy",
+                JOptionPane.showOptionDialog(null, "Do you want to buy " + 0 + " for " + 0 + " Lire ?", "Buy",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
                         null, options, options[0]);
             }
@@ -225,4 +228,9 @@ public class Background extends GraphicalObject {
         }
 
     }
+
+    public String getMode(){
+        return mode;
+    }
+
 }

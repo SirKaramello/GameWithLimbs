@@ -2,8 +2,8 @@ package model.weapons;
 
 import model.Item;
 
-public class stick extends Item {
-    public stick() {
+public class Stick extends Item {
+    public Stick() {
         setuStamina(getuStamina()-15);
         setuStrength(6);
         setName("Stick");

@@ -46,8 +46,8 @@ public class Shop extends GraphicalObject {
         weaponInfos[3] = createNewImage("assets/images/weapons/Crossbow (3.png");
         weaponInfos[4] = createNewImage("assets/images/weapons/purple sword (4).png");
         weaponInfos[5] = createNewImage("assets/images/weapons/stick (5).png");
-        weaponInfos[6] = createNewImage("assets/images/weapons/silver (6).png");
-        weaponInfos[7] = createNewImage("assets/images/weapons/gold (7).png");
+        weaponInfos[6] = createNewImage("assets/images/weapons/Silver (6).png");
+        weaponInfos[7] = createNewImage("assets/images/weapons/Gold (7).png");
 
         potionInfos[0] = createNewImage("assets/images/potionInfos/turqouise (0).png");
         potionInfos[1] = createNewImage("assets/images/potionInfos/green-yellowy (1).png");
@@ -81,17 +81,17 @@ public class Shop extends GraphicalObject {
      */
     public void drawShopShield(DrawTool drawTool){
         drawTool.drawImage(shields,550,250);
-        drawTool.drawText(550,200,"Du hast " + sp.getStamina() + " Stemina zur Verfügung");
+        drawTool.drawText(550,200,"Du hast " + sp.getLire() + " Lire(die Währung in diesem Spiel) zur Verfügung");
     }
 
     public void drawShopWeapon(DrawTool drawTool){
         drawTool.drawImage(weappons,550,250);
-        drawTool.drawText(550,200,"Du hast " + sp.getStamina() + " Stemina zur Verfügung");
+        drawTool.drawText(550,200,"Du hast " + sp.getLire() + " Lire(die Währung in diesem Spiel) zur Verfügung");
     }
 
     public void drawShopPotions(DrawTool drawTool){
         drawTool.drawImage(potions,550,250);
-        drawTool.drawText(550,200,"Du hast " + sp.getStamina() + " Stemina zur Verfügung");
+        drawTool.drawText(550,200,"Du hast " + sp.getLire() + " Lire(die Währung in diesem Spiel) zur Verfügung");
     }
 
     public void drawShopFrame(DrawTool drawTool,int pX,int pY){
@@ -142,6 +142,4 @@ public class Shop extends GraphicalObject {
             }
         }
     }
-
-
 }
