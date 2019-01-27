@@ -35,6 +35,7 @@ public class Body extends GraphicalObject {
     private Queue<UpgradeInfo> strengthPath;
     private Queue<UpgradeInfo> resistancePath;
     private int upgrade;
+    private double deTe;
 
     //0=hp 1=stamina 2=speed 3=strength 4=resistance
     public Body(UIController uiController){
@@ -69,6 +70,7 @@ public class Body extends GraphicalObject {
 
     public void update(double dt){
         live(dt);
+        deTe = dt;
     }
 
     /**
@@ -452,8 +454,10 @@ public class Body extends GraphicalObject {
         stats[3]=st;
     }
 
-    public void setResistance(int resistance){
-        stats[4]=resistance;
+    public void setResistance(int resistance,int time){
+        double tmp = deTe;
+        while (tmp+time < deTe)
+            stats[4]=resistance;
     }
 
 }

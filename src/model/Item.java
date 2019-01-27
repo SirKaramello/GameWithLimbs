@@ -5,7 +5,7 @@ import akkgframework.model.fundamental.GraphicalObject;
 import java.awt.image.BufferedImage;
 
 
-public abstract class Item extends GraphicalObject {
+public class Item extends GraphicalObject {
 
     private Body uBody;
     private int powerUpType;
@@ -64,8 +64,8 @@ public abstract class Item extends GraphicalObject {
         return uBody.getResistance();
     }
 
-    public void setuResistance(int uResistance) {
-        uBody.setResistance(uResistance);
+    public void setuResistance(int uResistance, int Time) {
+        uBody.setResistance(uResistance, Time);
     }
 
     public int getPowerUpType() {
