@@ -4,6 +4,7 @@ import akkgframework.control.fundamental.UIController;
 import akkgframework.model.fundamental.GraphicalObject;
 import akkgframework.view.DrawTool;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -113,12 +114,6 @@ public class Background extends GraphicalObject {
         System.out.println(mouseX+" / "+mouseY);
     }
 
-    public void mouseCoordinatos(){
-        if(mouseX>10 && mouseX<200 && mouseY>100 && mouseY<200){
-            mode="shop";
-        }
-    }
-
     /**
      * Wenn eine Taste gedrückt wird , passiert etwas! Vielleicht...
      * @param key Taste die gedrückt wurde
@@ -134,6 +129,11 @@ public class Background extends GraphicalObject {
             frameActive = false;
         }
     }
+
+    /**
+     * Wenn man an eine Bestimmte Stelle klickt öffnet sich der Shop, man Kauft etwas,wechselt Shop Seiten oder wählt Items im Shop aus.
+     * @param e
+     */
 
     public void mousePressed(MouseEvent e){
         if(mouseX>10 && mouseX<600 && mouseY>100 && mouseY<240 && e.getButton()==1 && mode.equals("menue")){
@@ -157,6 +157,14 @@ public class Background extends GraphicalObject {
                     frameActive = false;
                 }
             }
+
+            if (mouseX > 1230 && mouseX < 1280 && mouseY > 700 && mouseY < 720 && frameActive){
+                Object[] options = { "BUY", "CANCEL" };
+                JOptionPane.showOptionDialog(null, "Do you want to buy " + 0 + " for " + 0 + " Stemina ?", "Buy",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+                        null, options, options[0]);
+            }
+
             if (mouseY > 400 && mouseY < 560 && mouseX > 600 && mouseX < 1000){
                 if (mouseY < 470){
                     if (mouseX < 680){

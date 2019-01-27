@@ -24,6 +24,11 @@ public class Shop extends GraphicalObject {
 
     protected Item shopItems [][] = new Item[3][8];
 
+    /**
+     * Der Konstruktor der Klasse Shop.
+     * Alle Fotos werden erzeugt und unter bestimmten Pfaden abgespeichert.
+     * @param uiController
+     */
     public Shop(UIController uiController) {
         uic=uiController;
         GraphicsEnvironment gd= GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -55,12 +60,21 @@ public class Shop extends GraphicalObject {
         shieldInfos[1] = createNewImage("assets/images/schilder/backpack (1).png");
     }
 
+    /**
+     * Das Shop Icon wird gezeichnet
+     * @param drawTool hiermit wird gezeichnet,
+     */
+
     @Override
     public void draw(DrawTool drawTool) {
         super.draw(drawTool);
         drawTool.drawImage(icon,100,80);
     }
 
+    /**
+     * Die verschiedenen Shopseiten werden gezeichnet.
+     * @param drawTool
+     */
     public void drawShopShield(DrawTool drawTool){
         drawTool.drawImage(shields,550,250);
     }
@@ -93,6 +107,10 @@ public class Shop extends GraphicalObject {
         this.currentItem = currentItem;
     }
 
+    /**
+     * Die Infos zu den Items werden gezeichnet.
+     * @param drawTool
+     */
     public void drawSpecifiedInfos (DrawTool drawTool){
         int first = this.getCurrentShopPage();
         int second = this.getCurrentItem();
