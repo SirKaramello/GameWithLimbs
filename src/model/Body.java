@@ -6,7 +6,6 @@ import akkgframework.model.fundamental.GraphicalObject;
 import akkgframework.model.abitur.datenstrukturen.List;
 import akkgframework.model.fundamental.Tileset;
 import akkgframework.view.DrawTool;
-import model.weapons.Weapon;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -28,7 +27,7 @@ public class Body extends GraphicalObject {
     protected UIController uic;
     protected BufferedImage[] bars;
     protected Body enemy;
-    private List<Weapon> inventory;
+    private List<Item> inventory;
     private Queue[] upgrades = new Queue[5];
     private Queue<UpgradeInfo> healthPath;
     private Queue<UpgradeInfo> staminaPath;
