@@ -4,6 +4,7 @@ import akkgframework.control.fundamental.UIController;
 import akkgframework.model.fundamental.GraphicalObject;
 import akkgframework.view.DrawTool;
 import akkgframework.model.abitur.datenstrukturen.List;
+import control.ProgramController;
 import model.Potions.*;
 import model.weapons.*;
 
@@ -51,19 +52,21 @@ public class Shop extends GraphicalObject {
         weaponInfos[6] = createNewImage("assets/images/weapons/Silver (6).png");
         weaponInfos[7] = createNewImage("assets/images/weapons/Gold (7).png");
 
-        potionInfos[0] = createNewImage("assets/images/potionInfos/Turqouise (0).png");
+        potionInfos[0] = createNewImage("assets/images/potionInfos/turqouise (0).png");
         potionInfos[1] = createNewImage("assets/images/potionInfos/green-yellowy (1).png");
         potionInfos[2] = createNewImage("assets/images/potionInfos/brownish (2).png");
         potionInfos[3] = createNewImage("assets/images/potionInfos/orange (3).png");
         potionInfos[4] = createNewImage("assets/images/potionInfos/yellow (4).png");
         potionInfos[5] = createNewImage("assets/images/potionInfos/galaxy (5).png");
         potionInfos[6] = createNewImage("assets/images/potionInfos/fancy af (6).png");
-        potionInfos[7] = createNewImage("assets/images/potionInfos/Expensive (7).png");
+        potionInfos[7] = createNewImage("assets/images/potionInfos/expensive (7).png");
 
         shieldInfos[0] = createNewImage("assets/images/schilder/shield (0).png");
         shieldInfos[1] = createNewImage("assets/images/schilder/backpack (1).png");
 
         sp = player;
+        shopItemsAdden();
+
 
     }
 
@@ -117,6 +120,14 @@ public class Shop extends GraphicalObject {
         this.currentItem = currentItem;
     }
 
+    public String getTheCurrentShopItemName(){
+        return shopItems[getCurrentShopPage()][getCurrentItem()].getName();
+    }
+
+    public int getTheCurrentShopItemCost(){
+        return shopItems[getCurrentShopPage()][getCurrentItem()].getCost();
+    }
+
     /**
      * Die Infos zu den Items werden gezeichnet.
      * @param drawTool
@@ -146,7 +157,11 @@ public class Shop extends GraphicalObject {
         }
     }
 
-    public void shopItemsAdden(){
+    /**
+     * Alle Items werden in das Shop Array getan.
+     */
+
+   public void shopItemsAdden(){
         shopItems [0][0] = new Sword(sp);
         shopItems [0][1] = new Ax(sp);
         shopItems [0][2] = new MorningStar(sp);
@@ -168,5 +183,10 @@ public class Shop extends GraphicalObject {
 
     public void shopItemKaufen(List<Item> inventar){
         inventar.append(shopItems[this.getCurrentShopPage()][this.getCurrentItem()]);
+    }
+
+    public void gekauft(){
+        shopItems[getCurrentShopPage()][getCurrentItem()].setBought(true);
+
     }
 }

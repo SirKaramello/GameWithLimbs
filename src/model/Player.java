@@ -213,7 +213,7 @@ public class Player extends Body {
      * Packt ein neues Item ins Inventar
      * @param item <- das neue Item
      */
-    private void getNewItem(Item item){
+    public void getNewItem(Item item){
         inventory.toFirst();
         inventory.append(item);
     }
