@@ -209,6 +209,7 @@ public class Player extends Body {
                 qPressed = false;
             }
         }
+    }
 
         /**
          * Diese wunderbare Methode liest eine Datei und speichert dann diese in einzelene Charaktere die dann
@@ -285,11 +286,11 @@ public class Player extends Body {
                 upgradeSTSPRE.setAddedNumber(35 * i);
                 upgradeHPSTR.setReqSouls(6 * i);
                 upgradeSTSPRE.setReqSouls(5 * i);
-                //upgrades[0].enqueue(upgradeHPSTR);
-                // upgrades[1].enqueue(upgradeSTSPRE);
-                // upgrades[2].enqueue(upgradeSTSPRE);
-                // upgrades[3].enqueue(upgradeHPSTR);
-                // upgrades[4].enqueue(upgradeSTSPRE);
+                upgrades[0].enqueue(upgradeHPSTR);
+                upgrades[1].enqueue(upgradeSTSPRE);
+                upgrades[2].enqueue(upgradeSTSPRE);
+                upgrades[3].enqueue(upgradeHPSTR);
+                upgrades[4].enqueue(upgradeSTSPRE);
             }
         }
 
