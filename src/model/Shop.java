@@ -3,7 +3,10 @@ package model;
 import akkgframework.control.fundamental.UIController;
 import akkgframework.model.fundamental.GraphicalObject;
 import akkgframework.view.DrawTool;
+import akkgframework.model.abitur.datenstrukturen.List;
 import control.ProgramController;
+import model.Potions.*;
+import model.weapons.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -62,6 +65,8 @@ public class Shop extends GraphicalObject {
         shieldInfos[1] = createNewImage("assets/images/schilder/backpack (1).png");
 
         sp = player;
+        shopItemsAdden();
+
     }
 
     /**
@@ -141,5 +146,29 @@ public class Shop extends GraphicalObject {
                 }
             }
         }
+    }
+
+    public void shopItemsAdden(){
+        shopItems [0][0] = new Sword();
+        shopItems [0][1] = new Ax();
+        shopItems [0][2] = new MorningStar();
+        shopItems [0][3] = new Crossbow();
+        shopItems [0][4] = new purpleSword();
+        shopItems [0][5] = new Stick();
+        shopItems [0][6] = new Silver();
+        shopItems [0][7] = new Gold();
+        shopItems [1][0] = new turqouise();
+        shopItems [1][1] = new GreenYellowy();
+        shopItems [1][2] = new Brownish();
+        shopItems [1][3] = new Orange();
+        shopItems [1][4] = new Yellow();
+        shopItems [1][5] = new Galaxy();
+        shopItems [1][6] = new fancyAf();
+        shopItems [1][7] = new expensive();
+        shopItems [2][2] = new Shield();
+    }
+
+    public void shopItemKaufen(List<Item> inventar){
+        inventar.append(shopItems[this.getCurrentShopPage()][this.getCurrentItem()]);
     }
 }

@@ -41,7 +41,7 @@ public class Background extends GraphicalObject {
         this.player=player;
         images=new BufferedImage[2];
         images[0]= createNewImage("assets/images/wip.png");
-        images[1]=createNewImage("assets/images/menue.png");
+        images[1]= createNewImage("assets/images/menue.png");
         shop=new Shop(uiC,player);
         currentshop = 1;
         frameX = 0;
@@ -166,6 +166,9 @@ public class Background extends GraphicalObject {
                 JOptionPane.showOptionDialog(null, "Do you want to buy " + 0 + " for " + 0 + " Lire ?", "Buy",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
                         null, options, options[0]);
+                if (options.equals("BUY")){
+
+                }
             }
 
             if (mouseY > 400 && mouseY < 560 && mouseX > 600 && mouseX < 1000){
