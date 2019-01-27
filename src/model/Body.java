@@ -69,14 +69,16 @@ public class Body extends GraphicalObject {
     public void drawPlayer(DrawTool drawTool){
         for(int i=0;i<stats[0];i++){
             drawTool.setCurrentColor(0,70,100,255);
-            drawTool.drawFilledRectangle(10+i,y,1,32);
+            drawTool.drawFilledRectangle(x-20+i,y-40,1,32);
         }
         for(int i=0;i<stats[1];i++){
             drawTool.setCurrentColor(0,125,100,255);
-            drawTool.drawFilledRectangle(10+i,y+30,1,32);
+            drawTool.drawFilledRectangle(x-20+i,y-70,1,32);
         }
-        drawTool.drawImage(bars[0],10,y);
-        drawTool.drawImage(bars[1],10,y+30);
+        drawTool.drawImage(bars[0],x-20,y-40);
+        drawTool.drawImage(bars[1],x-20,y-70);
+        drawTool.drawText(x-20,y+6,"Souls:");
+        drawTool.drawText(x-15,y+20,stats[5]+"");
         if(mode.equals("right")) {
             drawTool.drawImage(body.getTile((int) time, 0), x, y);
         }
