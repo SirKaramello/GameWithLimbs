@@ -10,13 +10,14 @@ import model.Item;
 public class Gold extends Item {
     public Gold(Body body) {
         super(body);
-        if (getBought()) {
-            setuStamina(getuStamina() - 300);
-            setuStrength(80);
-        }
             setName("Gold");
             setCost(300);
 
     }
 
+    @Override
+    public void gotBought() {
+        setuStamina(getuStamina() - 300);
+        setuStrength(80);
+    }
 }

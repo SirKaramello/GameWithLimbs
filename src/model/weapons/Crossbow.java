@@ -9,13 +9,14 @@ import model.Item;
 public class Crossbow extends Item {
     public Crossbow(Body body) {
         super(body);
-        if (getBought()) {
-            setuStamina(getuStamina() - 75);
-            setuStrength(30);
-        }
             setName("Crossbow");
             setCost(75);
 
     }
 
+    @Override
+    public void gotBought() {
+        setuStamina(getuStamina() - 75);
+        setuStrength(30);
+    }
 }

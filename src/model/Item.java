@@ -5,7 +5,7 @@ import akkgframework.model.fundamental.GraphicalObject;
 import java.awt.image.BufferedImage;
 
 
-public class Item extends GraphicalObject {
+public abstract class Item extends GraphicalObject {
 
     private Body uBody;
     private int powerUpType;
@@ -130,5 +130,8 @@ public class Item extends GraphicalObject {
     public void createNew(){
         bought = true;
     }
+
+    public abstract void gotBought();
+
 }
 

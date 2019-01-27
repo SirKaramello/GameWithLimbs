@@ -186,7 +186,7 @@ public class Shop extends GraphicalObject {
     }
 
     public void gekauft(){
-        shopItems[getCurrentShopPage()][getCurrentItem()].setBought(true);
+        shopItems[getCurrentShopPage()][getCurrentItem()].gotBought();
 
     }
 }
