@@ -4,10 +4,7 @@ import akkgframework.control.fundamental.UIController;
 import akkgframework.model.Display;
 import akkgframework.control.fundamental.SoundController;
 import akkgframework.model.abitur.datenstrukturen.List;
-import model.Background;
-import model.Body;
-import model.Enemy;
-import model.Shop;
+import model.*;
 import model.powerUP.*;
 
 /**
@@ -37,8 +34,9 @@ public class ProgramController {
      */
     public ProgramController(UIController uiController){
         this.uiController = uiController;
-        body=new Body(uiController);
+        body=new Player(uiController);
         bg=new Background(body, uiController);
+        body.meetBg(bg);
         enemies= new Enemy(uiController,body);
         body.meetEnemy(enemies);
     }
