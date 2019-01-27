@@ -69,8 +69,7 @@ public class Body extends GraphicalObject {
         }
         drawTool.drawImage(bars[0],x-20,y-40);
         drawTool.drawImage(bars[1],x-20,y-70);
-        drawTool.drawText(x-20,y+6,"Souls:");
-        drawTool.drawText(x-15,y+20,stats[5]+"");
+
         if(mode.equals("right")) {
             drawTool.drawImage(body.getTile((int) time, 0), x, y);
         }

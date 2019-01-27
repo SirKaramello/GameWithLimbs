@@ -17,14 +17,24 @@ public class Player extends Body {
 
     private Limb[] legs ,arms;
     private List<Item> inventory;
-    private Queue[] upgrades = new Queue[5];
+    private Queue<UpgradeInfo>[] upgrades;
     private Queue<UpgradeInfo> healthPath,staminaPath,speedPath,strengthPath,resistancePath;
+    private boolean qPressed,notAble,cantUpgrade;
 
     public Player(UIController uiController){
         super(uiController);
         inventory=new List<>();
         getSaveData();
         handleSave();
+        qPressed = false;
+        notAble = false;
+        cantUpgrade = false;
+        upgrades = new Queue[5];
+        healthPath = new Queue<>();
+        staminaPath = new Queue<>();
+        speedPath = new Queue<>();
+        strengthPath = new Queue<>();
+        resistancePath = new Queue<>();
         upgrades[0] = healthPath;
         upgrades[1] = staminaPath;
         upgrades[2] = speedPath;
@@ -35,6 +45,20 @@ public class Player extends Body {
 
     public void draw(DrawTool drawTool){
         super.draw(drawTool);
+        drawTool.drawText(x-20,y+6,"Souls:");
+        drawTool.drawText(x-15,y+20,stats[5]+"");
+        if (qPressed) {
+            drawTool.drawText(x - 20.0D, y - 105.0D, "Drücke zwischen 1-5 um zu upgraden");
+            drawTool.drawText(x - 20.0D, y - 85.0D, "1:HP 2:Stamina 3:Speed 4:Strength 5:Resistance");
+        }
+
+        if (notAble) {
+            drawTool.drawText(x - 20.0D, y - 85.0D, "Du hast nicht genug Souls gesammelt!");
+        }
+
+        if (cantUpgrade) {
+            drawTool.drawText(x - 20.0D, y - 85.0D, "Du kannst diesen Wert nicht mehr upgraden!");
+        }
     }
 
     public void update(double dt){
@@ -127,84 +151,147 @@ public class Player extends Body {
      * Wenn eine Taste gedrückt wird , passiert etwas!
      * @param key jeweilige Taste die gedrückt wurde
      */
-    public void keyPressed(int key){
-        if(key==KeyEvent.VK_SPACE && stats[1]>0){
-            mode2="roll";
+    public void keyPressed(int key) {
+        if (key == KeyEvent.VK_SPACE && stats[1] > 0) {
+            mode2 = "roll";
+        }
+        if (key == 81) {
+            qPressed = true;
+            cantUpgrade = false;
+            notAble = false;
+        }
+
+        if (qPressed) {
+            if (key == 49) {
+                doUpgrade(0);
+                qPressed = false;
+            }
+
+            if (key == 50) {
+                doUpgrade(1);
+                qPressed = false;
+            }
+
+            if (key == 51) {
+                doUpgrade(2);
+                qPressed = false;
+            }
+
+            if (key == 52) {
+                doUpgrade(3);
+                qPressed = false;
+            }
+
+            if (key == 53) {
+                doUpgrade(4);
+                qPressed = false;
+            }
         }
     }
-
-    /**
-     * Diese wunderbare Methode liest eine Datei und speichert dann diese in einzelene Charaktere die dann
-     * auf dem save char Array gespeichert werden
-     */
-    public void getSaveData(){
-        try {
-            FileReader reader = new FileReader("assets/data/save.txt");
-            Reader bufferedReader = new BufferedReader(reader);
-            FileInputStream fileInputStream= new FileInputStream("assets/data/save.txt");
-            int filelength = 0;
-            while (bufferedReader.read() != -1) {
-                filelength++;
-            }
-            save = new char[filelength];
-            for(int i=0;i<save.length && fileInputStream.available()>0;i++){
-                save[i] = (char) (fileInputStream.read());
-            }
-        }catch (Exception e){
-            System.out.println("Konnte nicht gespeichert werden");
-        }
-    }
-
-    /**
-     * Diese Methode setzt die stats zu den die das letzte mal seit dem Aufruf des Programms existiert haben auf
-     * und packt die
-     */
-    public void handleSave(){
-        String tmp="";
-        int j=1;
-        for(int i=0;i<stats.length ;i++){
-            while(j<save.length){
-                if(j+1<save.length && save[j]!=':'){
-                    tmp+="" +save[j];
-                }else{
-                    break;
+        /**
+         * Diese wunderbare Methode liest eine Datei und speichert dann diese in einzelene Charaktere die dann
+         * auf dem save char Array gespeichert werden
+         */
+        public void getSaveData () {
+            try {
+                FileReader reader = new FileReader("assets/data/save.txt");
+                Reader bufferedReader = new BufferedReader(reader);
+                FileInputStream fileInputStream = new FileInputStream("assets/data/save.txt");
+                int filelength = 0;
+                while (bufferedReader.read() != -1) {
+                    filelength++;
                 }
-                j++;
+                save = new char[filelength];
+                for (int i = 0; i < save.length && fileInputStream.available() > 0; i++) {
+                    save[i] = (char) (fileInputStream.read());
+                }
+            } catch (Exception e) {
+                System.out.println("Konnte nicht gespeichert werden");
             }
-            stats[i]=Integer.parseInt(tmp);
+        }
+
+        /**
+         * Diese Methode setzt die stats zu den die das letzte mal seit dem Aufruf des Programms existiert haben auf
+         * und packt die
+         */
+        public void handleSave () {
+            String tmp = "";
+            int j = 1;
+            for (int i = 0; i < stats.length; i++) {
+                while (j < save.length) {
+                    if (j + 1 < save.length && save[j] != ':') {
+                        tmp += "" + save[j];
+                    } else {
+                        break;
+                    }
+                    j++;
+                }
+                stats[i] = Integer.parseInt(tmp);
+            }
+        }
+
+        public void saveGame () {
+            try {
+                FileWriter fileWriter = new FileWriter("assets/data/save.txt");
+                fileWriter.write(":" + statsMax[0] + ":" + statsMax[1] + ":" + statsMax[2] + ":" + statsMax[3] + ":" + statsMax[4] + ":" + statsMax[5] + ":");
+                fileWriter.close();
+            } catch (Exception e) {
+                System.out.println("Konnte nicht gespeichert werden");
+            }
+        }
+
+        private void getNewItem (Item item){
+            inventory.toFirst();
+            inventory.append(item);
+        }
+        /**
+         * Die Queues werden mit einem Objekt der Klasse UpgradeInfo befüllt mit verschiedenen Werten.
+         * */
+
+        private void fillQueues () {
+            for (int i = 0; i < this.upgrades.length; ++i) {
+                UpgradeInfo upgradeHPSTR = new UpgradeInfo();
+                UpgradeInfo upgradeSTSPRE = new UpgradeInfo();
+                upgradeHPSTR.setAddedNumber(30 * i);
+                upgradeSTSPRE.setAddedNumber(35 * i);
+                upgradeHPSTR.setReqSouls(6 * i);
+                upgradeSTSPRE.setReqSouls(5 * i);
+                upgrades[0].enqueue(upgradeHPSTR);
+                upgrades[1].enqueue(upgradeSTSPRE);
+                upgrades[2].enqueue(upgradeSTSPRE);
+                upgrades[3].enqueue(upgradeHPSTR);
+                upgrades[4].enqueue(upgradeSTSPRE);
+            }
+
+        }
+
+    /**
+     * Es werden die Werte aus dem ersten Platz der Queue entnommen, und es wird überprüft ob der Spieler genügend
+     * Souls hat.Wenn ja wird der ausgewählte Wert geupgraded/erhöht.
+     */
+
+    private void doUpgrade(int i){
+            if (!upgrades[i].isEmpty()) {
+                cantUpgrade = false;
+                notAble = false;
+                int upg;
+                int req;
+                upg = upgrades[i].front().getAddedNumber();
+                req = upgrades[i].front().getReqSouls();
+                if (stats[5] > req) {
+                    stats[i] = stats[i] + upg;
+                    upgrades[i].dequeue();
+                    stats[5] = stats[5] - req;
+                }
+
+                if (stats[5] < req) {
+                    notAble = true;
+                }
+            } else {
+                qPressed = false;
+                cantUpgrade = true;
+            }
         }
     }
 
-    public void saveGame(){
-        try {
-            FileWriter fileWriter = new FileWriter("assets/data/save.txt");
-            fileWriter.write(":"+statsMax[0]+":"+statsMax[1]+":"+statsMax[2]+":"+statsMax[3]+":"+statsMax[4]+":"+statsMax[5]+":");
-            fileWriter.close();
-        }catch (Exception e){
-            System.out.println("Konnte nicht gespeichert werden");
-        }
-    }
 
-    private void getNewItem(Item item){
-        inventory.toFirst();
-        inventory.append(item);
-    }
-
-    private void fillQueues(){
-        for(int i = 0;i < upgrades.length; i++){
-            UpgradeInfo upgradeHPSTR = new UpgradeInfo();
-            UpgradeInfo upgradeSTSPRE = new UpgradeInfo();
-            upgradeHPSTR.setAddedNumber(30*i);
-            upgradeSTSPRE.setAddedNumber(35*i);
-            upgradeHPSTR.setReqSouls(6*i);
-            upgradeSTSPRE.setReqSouls(5*i);
-            // upgrades[0].enqueue(upgradeHPSTR);
-            // upgrades[1].enqueue(upgradeSTSPRE);
-            // upgrades[2].enqueue(upgradeSTSPRE);
-            // upgrades[3].enqueue(upgradeHPSTR);
-            // upgrades[4].enqueue(upgradeSTSPRE);
-        }
-    }
-
-
-}
