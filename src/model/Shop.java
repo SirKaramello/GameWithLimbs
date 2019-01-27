@@ -3,6 +3,7 @@ package model;
 import akkgframework.control.fundamental.UIController;
 import akkgframework.model.fundamental.GraphicalObject;
 import akkgframework.view.DrawTool;
+import control.ProgramController;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -21,6 +22,7 @@ public class Shop extends GraphicalObject {
     protected BufferedImage [] weaponInfos = new BufferedImage[8];
     protected BufferedImage [] potionInfos = new BufferedImage[8];
     protected BufferedImage [] shieldInfos = new BufferedImage[2];
+    protected Body sp;
 
     protected Item shopItems [][] = new Item[3][8];
 
@@ -29,7 +31,7 @@ public class Shop extends GraphicalObject {
      * Alle Fotos werden erzeugt und unter bestimmten Pfaden abgespeichert.
      * @param uiController
      */
-    public Shop(UIController uiController) {
+    public Shop(UIController uiController,Body player) {
         uic=uiController;
         GraphicsEnvironment gd= GraphicsEnvironment.getLocalGraphicsEnvironment();
         icon = createNewImage("assets/images/Shop/Shop Icon.png");
@@ -58,6 +60,8 @@ public class Shop extends GraphicalObject {
 
         shieldInfos[0] = createNewImage("assets/images/schilder/shield (0).png");
         shieldInfos[1] = createNewImage("assets/images/schilder/backpack (1).png");
+
+        sp = player;
     }
 
     /**
@@ -77,14 +81,17 @@ public class Shop extends GraphicalObject {
      */
     public void drawShopShield(DrawTool drawTool){
         drawTool.drawImage(shields,550,250);
+        drawTool.drawText(550,200,"Du hast " + sp.getStamina() + " Stemina zur Verfügung");
     }
 
     public void drawShopWeapon(DrawTool drawTool){
         drawTool.drawImage(weappons,550,250);
+        drawTool.drawText(550,200,"Du hast " + sp.getStamina() + " Stemina zur Verfügung");
     }
 
     public void drawShopPotions(DrawTool drawTool){
         drawTool.drawImage(potions,550,250);
+        drawTool.drawText(550,200,"Du hast " + sp.getStamina() + " Stemina zur Verfügung");
     }
 
     public void drawShopFrame(DrawTool drawTool,int pX,int pY){

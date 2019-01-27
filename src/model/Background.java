@@ -42,7 +42,7 @@ public class Background extends GraphicalObject {
         images=new BufferedImage[2];
         images[0]= createNewImage("assets/images/wip.png");
         images[1]=createNewImage("assets/images/menue.png");
-        shop=new Shop(uiC);
+        shop=new Shop(uiC,player);
         currentshop = 1;
         frameX = 0;
         frameY = 0;

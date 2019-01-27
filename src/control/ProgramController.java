@@ -71,6 +71,8 @@ public class ProgramController {
         timer = timer - dt;
     }
 
+
+
     /*public void itemDrops() {
         int itemOfChoice;
         if (droppedItems < 6) {
