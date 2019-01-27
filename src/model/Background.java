@@ -236,4 +236,8 @@ public class Background extends GraphicalObject {
         return mode;
     }
 
+    public void setMode(String mod){
+        mode=mod;
+    }
+
 }

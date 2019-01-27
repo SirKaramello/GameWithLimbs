@@ -1,9 +1,11 @@
 package model.weapons;
 
+import model.Body;
 import model.Item;
 
-public class purpleSword extends Item {
-    public purpleSword (){
+public class PurpleSword extends Item {
+    public PurpleSword (Body body) {
+        super(body);
         setuStamina(getuStamina()-75);
         setuStrength(28);
         setuSpeed(getuSpeed()+2);

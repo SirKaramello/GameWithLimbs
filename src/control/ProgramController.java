@@ -39,6 +39,7 @@ public class ProgramController {
         body.meetBg(bg);
         enemies= new Enemy(uiController,body);
         body.meetEnemy(enemies);
+        enemies.meetBg(bg);
     }
 
     /**

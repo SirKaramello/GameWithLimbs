@@ -1,9 +1,11 @@
 package model.Potions;
 
+import model.Body;
 import model.Item;
 
-public class fancyAf extends Item {
-    public fancyAf(){
+public class FancyAf extends Item {
+    public FancyAf(Body body) {
+        super(body);
         setuStamina(getuStamina()-200);
         setuHp(getuHp()+3);
         setuSpeed(getuSpeed()+10);

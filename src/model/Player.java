@@ -13,18 +13,25 @@ import java.io.*;
 
 public class Player extends Body {
 
+    //Attribute
     private char[] save;
-
+    private int upgrade;
+    //Referenzen
     private Limb[] legs ,arms;
     private List<Item> inventory;
-    private Queue[] upgrades = new Queue[5];
+    private Queue<UpgradeInfo>[] upgrades;
     private Queue<UpgradeInfo> healthPath,staminaPath,speedPath,strengthPath,resistancePath;
 
+    /**
+     * Konstruktor der Klasse Player. Erstellt bei Aufruf ein Objekt der Klasse Player
+     * @param uiController
+     */
     public Player(UIController uiController){
         super(uiController);
         inventory=new List<>();
         getSaveData();
         handleSave();
+        upgrades=new  Queue[5];
         upgrades[0] = healthPath;
         upgrades[1] = staminaPath;
         upgrades[2] = speedPath;
@@ -33,16 +40,30 @@ public class Player extends Body {
         fillQueues();
     }
 
+    /**
+     * Zeichnet den Spieler
+     * @param drawTool werkzeug zum zeichnen
+     */
     public void draw(DrawTool drawTool){
         super.draw(drawTool);
     }
 
+    /**
+     * Bewegung und modi-wechsel
+     * @param dt zeit seit dem letzten aufruf der methode
+     */
     public void update(double dt){
         if(bg!=null && bg.getMode().equals("fight")  ) {
+            super.update(dt);
             live(dt);
+            fighting(dt);
         }
     }
 
+    /**
+     * Wenn das Mausrad gedreht wird passiert etwas
+     * @param e
+     */
     public void mouseWheelMoved(MouseWheelEvent e){
         if(e.getWheelRotation()>=1){
 
@@ -175,6 +196,9 @@ public class Player extends Body {
         }
     }
 
+    /**
+     * Speichert die Stats des Spielers
+     */
     public void saveGame(){
         try {
             FileWriter fileWriter = new FileWriter("assets/data/save.txt");
@@ -185,11 +209,18 @@ public class Player extends Body {
         }
     }
 
+    /**
+     * Packt ein neues Item ins Inventar
+     * @param item <- das neue Item
+     */
     private void getNewItem(Item item){
         inventory.toFirst();
         inventory.append(item);
     }
 
+    /**
+     * Füllt die Queue mit tollen Dingen
+     */
     private void fillQueues(){
         for(int i = 0;i < upgrades.length; i++){
             UpgradeInfo upgradeHPSTR = new UpgradeInfo();
@@ -198,7 +229,7 @@ public class Player extends Body {
             upgradeSTSPRE.setAddedNumber(35*i);
             upgradeHPSTR.setReqSouls(6*i);
             upgradeSTSPRE.setReqSouls(5*i);
-            // upgrades[0].enqueue(upgradeHPSTR);
+            //upgrades[0].enqueue(upgradeHPSTR);
             // upgrades[1].enqueue(upgradeSTSPRE);
             // upgrades[2].enqueue(upgradeSTSPRE);
             // upgrades[3].enqueue(upgradeHPSTR);

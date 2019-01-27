@@ -1,26 +1,19 @@
 package model;
 
 import akkgframework.control.fundamental.UIController;
-import akkgframework.model.abitur.datenstrukturen.Queue;
 import akkgframework.model.fundamental.GraphicalObject;
-import akkgframework.model.abitur.datenstrukturen.List;
 import akkgframework.model.fundamental.Tileset;
 import akkgframework.view.DrawTool;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
-import java.io.*;
 
 public class Body extends GraphicalObject {
 
     //Attribute;
-    protected double  time;
+    protected double  time,deTe;
     protected String mode,mode2;
     protected int[] stats, statsMax ;
     protected double[] hitbox;
-    private int upgrade;
 
     //Referenzen
     protected Tileset body , fight, stand;
@@ -28,7 +21,6 @@ public class Body extends GraphicalObject {
     protected BufferedImage[] bars;
     protected Body enemy;
     protected Background bg;
-    private double deTe;
 
     //0=hp 1=stamina 2=speed 3=strength 4=resistance 5=souls
     public Body(UIController uiController){
@@ -38,7 +30,7 @@ public class Body extends GraphicalObject {
         statsMax=new int[6];
         body=new Tileset("assets/images/runningb.png",256,360);
         width=256/2;
-        height=360;
+        height=256;
         fight=new Tileset("assets/images/fighting.png",256,360);
         stand= new Tileset("assets/images/stan.png",256,360);
         bars=new BufferedImage[2];
@@ -58,9 +50,9 @@ public class Body extends GraphicalObject {
     }
 
     public void update(double dt){
-        deTe = dt;
+        //checkIfBodyIsInArena();
+        // deTe = dt;
     }
-
 
     /**
      * Zeichnet den wunderbaren , großartigen , unglaublichen Spieler
@@ -143,7 +135,7 @@ public class Body extends GraphicalObject {
      */
     public boolean checkIfBodyIsInArena(){
         if(y<=400 || y>=1000){
-            mode="falling";
+            bg.setMode("falling");
             return true;
         }
         return false;

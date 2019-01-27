@@ -15,7 +15,8 @@ public class Item extends GraphicalObject {
     private String name;
     private int cost;
 
-    public Item(){
+    public Item(Body body){
+        uBody=body;
     }
 
     private boolean isActive;
