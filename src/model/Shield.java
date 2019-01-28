@@ -7,9 +7,11 @@ public class Shield extends Item {
         setCost(80);
     }
 
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 80);
+        setuLire(getuLire() - 80);
         setuResistance(10000000, 120);
     }
 }

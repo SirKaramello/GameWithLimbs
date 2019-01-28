@@ -14,9 +14,11 @@ public class Expensive extends Item {
         setCost(300);
     }
 
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 300);
+        setuLire(getuLire() - getCost());
         setuHp(getuHp() + 3);
         setuSpeed(getuSpeed() + 10);
         setuStrength(getuStrength() + 10);

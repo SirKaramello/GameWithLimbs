@@ -10,15 +10,17 @@ import model.Item;
 public class MorningStar extends Item {
     public MorningStar(Body body) {
         super(body);
-            setName("MorningStar");
-            setCost(50);
+        setName("MorningStar");
+        setCost(50);
 
     }
 
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 50);
+        setuLire(getuLire() - getCost());
         setuSpeed(getuSpeed() - 2);
-        setuStrength(20);
+        setuStrength(getuStrength()+20);
     }
 }

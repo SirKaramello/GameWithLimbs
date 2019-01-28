@@ -13,9 +13,11 @@ public class Turqouise extends Item {
         setCost(30);
     }
 
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 30);
+        setuLire(getuLire() - getCost());
         setuStrength(getuStrength() + 10);
     }
 }

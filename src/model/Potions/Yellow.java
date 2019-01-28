@@ -13,10 +13,11 @@ public class Yellow extends Item {
         setName("yellow");
         setCost(70);
     }
-
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 70);
+        setuLire(getuLire() - getCost());
         setuHp(getuHp() + 3);
     }
 

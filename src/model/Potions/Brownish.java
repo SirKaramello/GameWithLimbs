@@ -13,10 +13,11 @@ public class Brownish extends Item {
         setName("brownish");
         setCost(50);
     }
-
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 50);
+        setuLire(getuLire() - getCost());
         setuStrength(getuStrength() + 10);
         setuSpeed(getuSpeed() + 10);
     }

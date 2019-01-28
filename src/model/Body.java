@@ -1,6 +1,7 @@
 package model;
 
 import akkgframework.control.fundamental.UIController;
+import akkgframework.model.abitur.datenstrukturen.List;
 import akkgframework.model.fundamental.GraphicalObject;
 import akkgframework.model.fundamental.Tileset;
 import akkgframework.view.DrawTool;
@@ -23,6 +24,7 @@ public class Body extends GraphicalObject {
     protected Body enemy;
     protected Background bg;
     protected PowerUP[] pFTS ;
+    protected List<Item> inventory;
 
     //0=hp 1=stamina 2=speed 3=strength 4=resistance 5=souls
     public Body(UIController uiController){
@@ -45,16 +47,28 @@ public class Body extends GraphicalObject {
         mode2="none";
     }
 
+    /**
+     * Lernt die PowerUps kennen
+     * @param p das Powerup was kennengelernt wird
+     */
     public void meetPowerUs(PowerUP[] p){
         pFTS=p;
     }
 
+    /**
+     * Zeichnet den Körper und die Healthbar
+     * @param drawTool das zeichenwerkzeug
+     */
     public void draw(DrawTool drawTool){
         if(bg!=null && bg.getMode().equals("fight") && stats[0]>0) {
             drawPlayer(drawTool);
         }
     }
 
+    /**
+     * Kollision mit Rand
+     * @param dt zeit seit dem letzten aufruf der methode
+     */
     public void update(double dt){
         //checkIfBodyIsInArena();
         // deTe = dt;
@@ -171,11 +185,13 @@ public class Body extends GraphicalObject {
         hitbox[3]=height;
     }
 
+    /**
+     * Lernt den Hintergrund kennen
+     * @param bg der Hintergrund der kennengelernt wird
+     */
     public void meetBg(Background bg){
         this.bg=bg;
     }
-
-
 
     /**
      * Gibt den Stat zurück den man haben will
@@ -210,15 +226,14 @@ public class Body extends GraphicalObject {
         return mode2;
     }
 
-
-
     /**
      * Körperteil , Wenn der Spieler auf 0 Leben dropped dann explodiert er in alle Einzelteile und man kann diese
      * kontrollieren.
      */
     protected class Limb{
+        //Attribute
         private double x,y;
-
+        //Referenzen
         private Tileset limb;
 
         /**
@@ -231,6 +246,10 @@ public class Body extends GraphicalObject {
             this.y=y;
         }
 
+        /**
+         * Zeichnet Gleider
+         * @param drawTool werkezug zum Zeichnen
+         */
         public void draw(DrawTool drawTool){
             drawTool.drawRectangle(x,y,20,10);
         }
@@ -269,59 +288,101 @@ public class Body extends GraphicalObject {
     }
 
 
-
+    /**
+     * @return Gibt Leben zurückn
+     */
     public int getHP(){
         return stats[0];
     }
-
+    /**
+     * @return Gibt Stamina zurückn
+     */
     public int getStamina(){
         return stats[1];
     }
-
+    /**
+     * @return Gibt Speed zurückn
+     */
     public int getSpeed(){
         return stats[2];
     }
-
+    /**
+     * @return Gibt Stärke zurückn
+     */
     public int getStrength(){
         return stats[3];
     }
-
+    /**
+     * @return Gibt Resistenzen zurückn
+     */
     public int getResistance(){
         return stats[4];
     }
-
+    /**
+     * @return Gibt Lire zurückn
+     */
     public int getLire(){
         return stats[5];
     }
 
+    /**
+     * Geld wird verändert zur li
+     * @param li zahl fürs neue Geld
+     */
     public void setLire(int li){
          stats[5] = li;
     }
-
+    /**
+     * Geld wird verändert zur hp
+     * @param hp zahl für neue Leben
+     */
     public void setHp(int hp){
         stats[0]=hp;
     }
-
+    /**
+     * Geld wird verändert zur st
+     * @param st zahl für neue Stamina
+     */
     public void setStamina(int st){
         stats[1]=st;
     }
-
+    /**
+     * Geld wird verändert zur sp
+     * @param sp zahl für neue Speed
+     */
     public void setSpeed(int sp){
         stats[2]=sp;
     }
-
+    /**
+     * Geld wird verändert zur st
+     * @param st zahl für neue Stärke
+     */
     public void setStrength(int st){
         stats[3]=st;
     }
 
+    /**
+     * Resistäznen werden verändert
+     * @param resistance resistenzen
+     * @param time zeit wie lange die resitänzen wirken
+     */
     public void setResistance(int resistance,int time){
         double tmp = deTe;
         while (tmp+time < deTe)
             stats[4]=resistance;
     }
-
+    /**
+    * Resistäznen werden verändert
+    * @param resistance resistenzen
+    **/
     public void setResistance(int resistance){
         stats[4]=resistance;
     }
 
+    /**
+     * @return Gibt Inventar der Items zurück(Liste)
+     */
+    public List<Item> getInventory(){
+        return inventory;
+    }
 }

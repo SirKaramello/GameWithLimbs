@@ -14,9 +14,11 @@ public class Galaxy extends Item {
         setCost(110);
     }
 
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 110);
+        setuLire(getuLire() - getCost());
         setuHp(getuHp() + 3);
         setuResistance(1000000, 20);
     }

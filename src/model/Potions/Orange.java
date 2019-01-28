@@ -13,9 +13,11 @@ public class Orange extends Item {
         setCost(70);
     }
 
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 70);
+        setuLire(getuLire() - getCost());
         setuResistance(10000000, 30);
     }
 }

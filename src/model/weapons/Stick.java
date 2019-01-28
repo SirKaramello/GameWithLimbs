@@ -13,9 +13,11 @@ public class Stick extends Item {
         setCost(15);
     }
 
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 15);
-        setuStrength(6);
+        setuLire(getuLire() - getCost());
+        setuStrength(getuStrength()+6);
     }
 }

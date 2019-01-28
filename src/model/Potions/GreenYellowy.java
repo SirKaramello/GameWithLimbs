@@ -13,7 +13,9 @@ public class GreenYellowy extends Item {
         setCost(30);
     }
 
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
         setuStamina(getuStamina() - 30);
         setuSpeed(getuSpeed() + 10);

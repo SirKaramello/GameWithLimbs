@@ -12,21 +12,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Shop extends GraphicalObject {
-
-    protected int currentShopPage;
-    protected int currentItem;
-
+    //Attribute
+    protected int currentShopPage,currentItem;
+    //Referenzen
     protected UIController uic;
-    protected BufferedImage icon;
-    protected BufferedImage shields;
-    protected BufferedImage potions;
-    protected BufferedImage weappons;
-    protected BufferedImage frame;
+    protected BufferedImage icon,frame,shields,potions,weapons;
     protected BufferedImage [] weaponInfos = new BufferedImage[8];
     protected BufferedImage [] potionInfos = new BufferedImage[8];
     protected BufferedImage [] shieldInfos = new BufferedImage[2];
     protected Body sp;
-
     protected Item shopItems [][] = new Item[3][8];
 
     /**
@@ -40,7 +34,7 @@ public class Shop extends GraphicalObject {
         icon = createNewImage("assets/images/Shop/Shop Icon.png");
         shields = createNewImage("assets/images/Shop/Shop Toll Schilder.png");
         potions = createNewImage("assets/images/Shop/Shop Toll Tränke.png");
-        weappons = createNewImage("assets/images/Shop/Shop Toll Waffen.png");
+        weapons = createNewImage("assets/images/Shop/Shop Toll Waffen.png");
         frame = createNewImage("assets/images/Shop/Fetter Rahmen.png");
 
         weaponInfos[0] = createNewImage("assets/images/weapons/Sword (0).png");
@@ -91,7 +85,7 @@ public class Shop extends GraphicalObject {
     }
 
     public void drawShopWeapon(DrawTool drawTool){
-        drawTool.drawImage(weappons,550,250);
+        drawTool.drawImage(weapons,550,250);
         drawTool.drawText(550,200,"Du hast " + sp.getLire() + " Lire(die Währung in diesem Spiel) zur Verfügung");
     }
 
@@ -100,30 +94,56 @@ public class Shop extends GraphicalObject {
         drawTool.drawText(550,200,"Du hast " + sp.getLire() + " Lire(die Währung in diesem Spiel) zur Verfügung");
     }
 
+    /**
+     * Shopframe wird gezeichnet
+     * @param drawTool zeichenwerkezug
+     * @param pX x koordinate des shop
+     * @param pY y koordinate desshops
+     */
     public void drawShopFrame(DrawTool drawTool,int pX,int pY){
         drawTool.drawImage(frame,pX,pY);
     }
 
+    /**
+     * @return Übergibt die jetzige Zahl der Shopseite
+     */
     public int getCurrentShopPage() {
         return currentShopPage;
     }
 
+    /**
+     * Setzt die jetzige Shopseite zu einer neuen
+     * @param currentShopPage die Zahl der Shopseite
+     */
     public void setCurrentShopPage(int currentShopPage) {
         this.currentShopPage = currentShopPage;
     }
 
+    /**
+     * @return Gibt das aktuelle Item zurück
+     */
     public int getCurrentItem() {
         return currentItem;
     }
 
+    /**
+     * Setzt das aktuelle Item
+     * @param currentItem die Zahl für das setzen des neues Items
+     */
     public void setCurrentItem(int currentItem) {
         this.currentItem = currentItem;
     }
 
+    /**
+     * @return gibt den Namen des Items zurück
+     */
     public String getTheCurrentShopItemName(){
         return shopItems[getCurrentShopPage()][getCurrentItem()].getName();
     }
 
+    /**
+     * @return Gibt den Preis des jetzigen Items
+     */
     public int getTheCurrentShopItemCost(){
         return shopItems[getCurrentShopPage()][getCurrentItem()].getCost();
     }
@@ -181,12 +201,18 @@ public class Shop extends GraphicalObject {
         shopItems [2][2] = new Shield(sp);
     }
 
+    /**
+     * Packt das gekaufte Item in das Inventar
+     * @param inventar das inventar in welches das objekt hinzugefügt wird
+     */
     public void shopItemKaufen(List<Item> inventar){
         inventar.append(shopItems[this.getCurrentShopPage()][this.getCurrentItem()]);
     }
 
+    /**
+     * Kauft das ausgewählte Item
+     */
     public void gekauft(){
         shopItems[getCurrentShopPage()][getCurrentItem()].gotBought();
-
     }
 }

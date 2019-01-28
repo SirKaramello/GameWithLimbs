@@ -14,9 +14,11 @@ public class FancyAf extends Item {
         setCost(200);
     }
 
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 200);
+        setuLire(getuLire() - getCost());
         setuHp(getuHp() + 3);
         setuSpeed(getuSpeed() + 10);
         setuStrength(getuStrength() + 10);

@@ -133,5 +133,13 @@ public abstract class Item extends GraphicalObject {
 
     public abstract void gotBought();
 
+    public void setuLire(int d){
+        uBody.setLire(d);
+    }
+
+    public int getuLire(){
+        return uBody.getLire();
+    }
+
 }
 

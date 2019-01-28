@@ -14,9 +14,11 @@ public class Sword extends Item {
         setCost(30);
     }
 
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 30);
-        setuStrength(10);
+        setuLire(getuLire() - getCost());
+        setuStrength(getuStrength()+10);
     }
 }

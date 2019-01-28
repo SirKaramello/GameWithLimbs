@@ -21,7 +21,6 @@ public class Player extends Body {
     //Referenzen
     private Stack<PowerUP> powerUpInventory;
     private Limb[] legs, arms;
-    private List<Item> inventory;
     private Queue<UpgradeInfo>[] upgrades;
     private Queue<UpgradeInfo> healthPath, staminaPath, speedPath, strengthPath, resistancePath;
     private boolean qPressed, notAble, cantUpgrade;
@@ -331,24 +330,24 @@ public class Player extends Body {
         }
     }
 
-        public void usePowerUP() {
-            if (!powerUpInventory.isEmpty()) {
-                PowerUP powerUpUse = powerUpInventory.top();
-                if (powerUpUse.getPowerUpType() < 3) {
-                    setHp(getHP() + powerUpUse.getuHp());
-                    setResistance(getResistance() + powerUpUse.getuResistance());
-                    setSpeed(getSpeed() + powerUpUse.getuSpeed());
-                    setStamina(getStamina() + powerUpUse.getuStamina());
-                } else {
-                    if (powerUpUse.getPowerUpType() == 3) {
-                        enemy.setMode("lel");
-                    }
-
+    public void usePowerUP() {
+        if (!powerUpInventory.isEmpty()) {
+            PowerUP powerUpUse = powerUpInventory.top();
+            if (powerUpUse.getPowerUpType() < 3) {
+                setHp(getHP() + powerUpUse.getuHp());
+                setResistance(getResistance() + powerUpUse.getuResistance());
+                setSpeed(getSpeed() + powerUpUse.getuSpeed());
+                setStamina(getStamina() + powerUpUse.getuStamina());
+            } else {
+                if (powerUpUse.getPowerUpType() == 3) {
+                    enemy.setMode("lel");
                 }
-                powerUpInventory.pop();
-
             }
+            powerUpInventory.pop();
         }
+    }
+
+
 }
 
 

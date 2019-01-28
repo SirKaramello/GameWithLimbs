@@ -14,10 +14,12 @@ public class PurpleSword extends Item {
         setCost(75);
     }
 
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 75);
-        setuStrength(28);
+        setuLire(getuLire() - getCost());
+        setuStrength(getuStrength()+28);
         setuSpeed(getuSpeed() + 2);
     }
 }

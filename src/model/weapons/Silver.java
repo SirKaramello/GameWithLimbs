@@ -14,9 +14,11 @@ public class Silver extends Item {
         setCost(90);
     }
 
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 90);
-        setuStrength(50);
+        setuLire(getuLire() - getCost());
+        setuStrength(getuStrength()+50);
     }
 }

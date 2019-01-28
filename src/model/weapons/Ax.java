@@ -12,14 +12,16 @@ import model.Item;
 public class Ax extends Item {
     public Ax(Body body) {
         super(body);
-                setName("Ax");
-                setCost(25);
+        setName("Ax");
+        setCost(25);
 
     }
-
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought(){
-            setuStamina(getuStamina() - 25);
-            setuSpeed(getuSpeed() - 5);
-            setuStrength(8);
+        setuLire(getuLire() - getCost());
+        setuSpeed(getuSpeed() - 5);
+        setuStrength(getuStrength()+8);
     }
 }

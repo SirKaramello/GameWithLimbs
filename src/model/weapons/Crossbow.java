@@ -9,14 +9,16 @@ import model.Item;
 public class Crossbow extends Item {
     public Crossbow(Body body) {
         super(body);
-            setName("Crossbow");
-            setCost(75);
+        setName("Crossbow");
+        setCost(75);
 
     }
 
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 75);
-        setuStrength(30);
+        setuLire(getuLire() - getCost());
+        setuStrength(getuStrength()+30);
     }
 }

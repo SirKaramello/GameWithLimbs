@@ -10,14 +10,16 @@ import model.Item;
 public class Gold extends Item {
     public Gold(Body body) {
         super(body);
-            setName("Gold");
-            setCost(300);
+        setName("Gold");
+        setCost(300);
 
     }
 
-    @Override
+    /**
+     * Verändert die Werte wenn gekauft
+     */
     public void gotBought() {
-        setuStamina(getuStamina() - 300);
-        setuStrength(80);
+        setuLire(getuLire() - getCost());
+        setuStrength(getuStrength()+80);
     }
 }
