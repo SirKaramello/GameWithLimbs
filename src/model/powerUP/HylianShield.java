@@ -8,12 +8,14 @@ import model.Body;
 public class HylianShield extends PowerUP {
 
     public HylianShield(Body body){
-        setuBody(body);
-        setuHp(body.getHP());
-        setuStamina(-(body.getStamina()/8));
-        setuSpeed(-(body.getSpeed()/8));
-        setuResistance(body.getResistance());
-        setuStrength(body.getStrength());
+        filePath="assets/images/pU/hyl.png";
+        setTimeStopCount(0);
+        setuSpeed(-100);
+        setSTOP(false);
+        yMax=200+(int)(Math.random()*1080);
+        x=Math.random()*1800;
+        setuResistance(body.getResistance()+10);
+        setMyImage(createNewImage(getFilePath()));
     }
 
 }

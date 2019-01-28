@@ -11,12 +11,18 @@ public class MenacingLookingClock  extends PowerUP{
     private double timeStopCount;
 
     public MenacingLookingClock(Body body){
-        setuBody(body);
-        setuSpeed(body.getSpeed()/8);
-        this.timeStopCount = 3 + 0.25 * body.getStamina();
+        filePath="assets/images/pU/menacing.png";
+        setTimeStopCount(0);
+        setAmountOfST(5);
+        setSTOP(false);
+        setPowerUpType(3);
+        x=Math.random()*1800;
+        yMax=500+(int)(Math.random()*1080);
+        setMyImage(createNewImage(getFilePath()));
     }
 
     public void update(double dt) {
+       // super.update(dt);
         double timeStop = this.getTimeStopCount();
         while (this.getTimeStopCount() < 0) {
             if (!this.isSTOP()) {

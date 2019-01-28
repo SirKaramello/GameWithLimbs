@@ -23,12 +23,16 @@ public class Enemy extends Body {
     public Enemy(UIController uiController , Body enemy){
         super(uiController);
         this.enemy=enemy;
+        gd=GraphicsEnvironment.getLocalGraphicsEnvironment();
         mode2="stand";
         mode="none";
         setRandomStats();
         state="attack";
         width=body.getTile(0,0).getWidth();
         height=body.getTile(0,0).getHeight();
+        statsMax[1]=stats[1];
+        width=256/2;
+        height=256;
     }
 
     /**
@@ -36,8 +40,10 @@ public class Enemy extends Body {
      */
     public void setRandomStats(){
         for(int i=0;i<stats.length;i++){
-            stats[i]=(int)(10+Math.random()*300);
+            stats[i]=(int)(50+Math.random()*300);
         }
+        setStrength(1);
+        stats[4]=10;
     }
     /**
      * Zeichnet den Gegner
@@ -45,6 +51,7 @@ public class Enemy extends Body {
      */
     @Override
     public void draw(DrawTool drawTool) {
+
         super.draw(drawTool);
     }
 
@@ -54,8 +61,11 @@ public class Enemy extends Body {
      */
     @Override
     public void update(double dt) {
-        if (bg != null && bg.getMode().equals("fight")) {
+        if (bg != null && bg.getMode().equals("fight") && !mode.equals("lel")) {
             super.update(dt);
+            if( stats[1]>=0 && stats[1]<=statsMax[1] && !mode2.equals("fightE") ) {
+                stats[1] += 100 * dt;
+            }
             time+=10*dt;
             if(time>=8){
                 time=0;
@@ -76,11 +86,14 @@ public class Enemy extends Body {
             if (lel) {
                 tan = Math.atan2(Math.random() * gd.getDefaultScreenDevice().getDisplayMode().getHeight() - y, Math.random() * gd.getDefaultScreenDevice().getDisplayMode().getWidth() - x);
             }
-            if(enemy.collidesWith(enemy)){
+            if(collidesWith(enemy)){
+                state="attacking";
                 mode2="fightE";
                 fighting(dt);
-            }else{
+                mode="none";
+            }else if(stats[0] >= stats[0]/4){
                 mode2="stand";
+                state="attack";
             }
             if (state.equals("flea")) {
                 lel = false;
@@ -89,18 +102,14 @@ public class Enemy extends Body {
             }
 
         }
-        if (stats[0] <= 20) {
+        if (stats[0] <= stats[0]/4) {
             state = "flea";
-        } else{
-            state = "attack";
         }
         if(stats[0]<=0){
             x=gd.getDefaultScreenDevice().getDisplayMode().getWidth()-100;
             y=gd.getDefaultScreenDevice().getDisplayMode().getHeight()/2;
             stats[0]=256;
         }
-        System.out.println(mode +" Gegner");
-        System.out.println(mode2 +" GegnerMode2");
     }
 
 
@@ -112,5 +121,7 @@ public class Enemy extends Body {
         return Math.sqrt(Math.pow(x-enemy.getX(),2)+Math.pow(y-enemy.getY(),2));
     }
 
-
+    public void setState(String state) {
+        this.state = state;
+    }
 }

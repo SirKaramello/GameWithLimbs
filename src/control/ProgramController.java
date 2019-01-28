@@ -16,6 +16,7 @@ public class ProgramController {
     //Attribute
     private double programTimer;
     private double timer = 0;
+    private int droppedItems;
 
     // Referenzen
     private UIController uiController;  // diese Referenz soll auf ein Objekt der Klasse uiController zeigen. Über dieses Objekt wird das Fenster gesteuert.
@@ -24,6 +25,7 @@ public class ProgramController {
     private Body body;
     private Background bg;
     private Enemy enemies;
+    private PowerUP[] pFTS ;
 
     /**
      * Konstruktor
@@ -34,7 +36,12 @@ public class ProgramController {
      */
     public ProgramController(UIController uiController){
         this.uiController = uiController;
+        pFTS = new PowerUP[3];
         body=new Player(uiController);
+        pFTS[0]=new MenacingLookingClock(body);
+        pFTS[1]=new SuspiciousLookingMushroom(body);
+        pFTS[2]=new HylianShield(body);
+        body.meetPowerUs(pFTS);
         bg=new Background(body, uiController);
         body.meetBg(bg);
         enemies= new Enemy(uiController,body);
@@ -51,6 +58,12 @@ public class ProgramController {
         uiController.registerObject(bg);
         uiController.registerObject(enemies);
         uiController.registerObject(body);
+        for(int i=0;i<pFTS.length;i++){
+            uiController.registerObject(pFTS[i]);
+            if (i+1<pFTS.length && pFTS[i].collidesWith(pFTS[i+1])){
+                pFTS[i].jump();
+            }
+        }
         timer = 0;
     }
 
@@ -60,9 +73,8 @@ public class ProgramController {
      */
     public void updateProgram(double dt){
         programTimer += dt;
+
         // ******************************************* Ab hier euer eigener Code! *******************************************
-        while(timer < 0){
-        }
     }
 
     public void updateStoppedTime(double dt, double timeStopCount){
@@ -72,72 +84,7 @@ public class ProgramController {
 
 
 
-    /*public void itemDrops() {
-        int itemOfChoice;
-        if (droppedItems < 6) {
-            itemOfChoice = (int) (1 + (Math.random() * 2));
-        } else {
-            itemOfChoice = (int) (1 + (Math.random() * 4));
-        }
-        if (itemOfChoice == 1) {
-            new SuspiciousLookingMushroom(body);
-            droppedItems++;
-        }
-
-        if (itemOfChoice == 2) {
-            new HylianShield(body);
-            droppedItems++;
-        }
-
-        if (itemOfChoice == 3) {
-            new MenacingLookingClock(body);
-            droppedItems++;
-        }
-
-        if (itemOfChoice == 4) {
-            new EqualFuel(body);
-            droppedItems++;
-        }
-    }
-
-    public void updateItemDrops(double dt) {
-        itemTimer = itemTimer + (int) dt;
-        if (dropTime <= itemTimer) {
-            itemDrops();
-            dropTime = dropTime + 10;
-        }
-    }
-
-    public void updateSouls(Body body) {
-        // if()
-        body.setSouls(body.getSouls() + 1);
-    }
-
-    public void pickUpPowerUp(PowerUP pU) {
-        powerUpInventory.push(pU);
-    }
 
 
 
-    public void usePowerUP() {
-        if (!powerUpInventory.isEmpty()) {
-            PowerUP powerUpUse = powerUpInventory.top();
-            if (powerUpUse.getPowerUpType() < 3) {
-                body.setHP(body.getHP() + powerUpUse.getuHp());
-                body.setResistance(body.getResistance() + powerUpUse.getuResistance());
-                body.setSpeed(body.getSpeed() + powerUpUse.getuSpeed());
-                body.setStamina(body.getStamina() + powerUpUse.getuStamina());
-            } else {
-                if (powerUpUse.getPowerUpType() == 4) {
-                    powerUpUse.updateTimeStopCount(powerUpUse);
-                }
-
-            }
-            powerUpInventory.pop();
-        }
-
-    }
-
-    public void buyUpgrade(){
-    }*/
 }

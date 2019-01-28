@@ -1,21 +1,33 @@
 package model.powerUP;
 
+import akkgframework.model.fundamental.GraphicalObject;
+import akkgframework.view.DrawTool;
 import model.Body;
+
+import java.awt.image.BufferedImage;
 
 /** nicht in dieser klasse weiterarbeiten, es wird umverlagert zu Items */
 
-public abstract class PowerUP {
+public abstract class PowerUP extends GraphicalObject {
 
     private Body uBody;
     private int uHp;
     private int uStamina;
-    private int powerUpType;
+    protected int powerUpType;
     private int uSpeed;
     private int uStrength;
     private int uResistance;
-    private double TimeStopCount;
-    private int amountOfST;
-    private boolean STOP;
+    protected double TimeStopCount;
+    protected int amountOfST;
+    protected boolean STOP;
+    protected String filePath;
+    protected boolean pickedUp;
+    protected double yMax ;
+
+    public String getFilePath() {
+        return filePath;
+    }
+
 
     public Body getuBody() {
         return uBody;
@@ -99,6 +111,27 @@ public abstract class PowerUP {
 
     public void setTimeStopCount(double timeStopCount) {
         TimeStopCount = timeStopCount;
+    }
+
+    public void update(double dt){
+        if(y <= yMax){
+            y += Math.random()*500*dt;
+        }
+    }
+
+    public void jump(){
+        x=Math.random()*1800;
+    }
+
+    public void draw(DrawTool drawTool){
+        drawTool.drawRectangle(x,y,width,height);
+        if(!pickedUp){
+            drawTool.drawImage(this.getMyImage(), x, y);
+        }
+    }
+
+    public void setPickedUp(boolean p){
+        pickedUp=p;
     }
 
 }

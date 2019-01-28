@@ -4,6 +4,7 @@ import akkgframework.control.fundamental.UIController;
 import akkgframework.model.fundamental.GraphicalObject;
 import akkgframework.model.fundamental.Tileset;
 import akkgframework.view.DrawTool;
+import model.powerUP.PowerUP;
 
 import java.awt.image.BufferedImage;
 
@@ -21,6 +22,7 @@ public class Body extends GraphicalObject {
     protected BufferedImage[] bars;
     protected Body enemy;
     protected Background bg;
+    protected PowerUP[] pFTS ;
 
     //0=hp 1=stamina 2=speed 3=strength 4=resistance 5=souls
     public Body(UIController uiController){
@@ -41,6 +43,10 @@ public class Body extends GraphicalObject {
         stats[5]=100;
         mode="stand";
         mode2="none";
+    }
+
+    public void meetPowerUs(PowerUP[] p){
+        pFTS=p;
     }
 
     public void draw(DrawTool drawTool){
@@ -106,6 +112,7 @@ public class Body extends GraphicalObject {
     }
 
 
+
     /**
      * Hitbox der Faust und generelles Kämpfchen
      * @param dt
@@ -119,13 +126,13 @@ public class Body extends GraphicalObject {
             }
             if (time >= 4 && time < 5) {
                 hitbox((int) (x + fight.getTile((int) (time), 0).getWidth() / 2), y + 10, 75, 20);
-                System.out.println("JAAAA");
+
             } else if (time >= 7 && time < 8) {
                 hitbox((int) (x + fight.getTile((int) (time), 0).getWidth() / 2), y + fight.getTile((int) (time), 0).getHeight(), 75, 20);
+
             }
             if(hitbox[0]+hitbox[2]>enemy.getX() && hitbox[0]<enemy.getX()+enemy.getWidth() && hitbox[1]+hitbox[3]>enemy.getY() && hitbox[1]<enemy.getY()+enemy.getHeight() ){
-                enemy.setHp(enemy.getHP()-enemy.getStrength()/getResistance());
-                System.out.println("ist trueeee");
+                enemy.setHp((int)((enemy.getHP()-(enemy.getStrength()/getResistance())*dt)));
             }
         }
     }
@@ -311,6 +318,10 @@ public class Body extends GraphicalObject {
         double tmp = deTe;
         while (tmp+time < deTe)
             stats[4]=resistance;
+    }
+
+    public void setResistance(int resistance){
+        stats[4]=resistance;
     }
 
 }
