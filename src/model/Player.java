@@ -51,9 +51,9 @@ public class Player extends Body {
         upgrades[2] = speedPath;
         upgrades[3] = strengthPath;
         upgrades[4] = resistancePath;
+        width=body.getTile(0,0).getWidth()/2;
+        height=body.getTile(0,0).getHeight()/2;
         fillQueues();
-        width=256/2;
-        height=256;
     }
 
     /**
@@ -62,6 +62,12 @@ public class Player extends Body {
      */
     public void draw(DrawTool drawTool){
         super.draw(drawTool);
+        if(mode=="boom"){
+            for (int i=0;i<legs.length;i++){
+                legs[i].draw(drawTool);
+                arms[i].draw(drawTool);
+            }
+        }
         drawTool.drawText(x - 20, y + 6, "Souls:");
         drawTool.drawText(x - 15, y + 20, stats[5] + "");
         if (qPressed) {
@@ -87,6 +93,7 @@ public class Player extends Body {
             super.update(dt);
             live(dt);
             fighting(dt);
+            fightCollision(dt);
         }
     }
 
@@ -96,7 +103,9 @@ public class Player extends Body {
      */
     public void mouseWheelMoved(MouseWheelEvent e){
         nextWeapon(e.getWheelRotation());
+        inventory.toFirst();
         inventory.getContent().gotBought();
+        System.out.println(inventory.getContent().getName());
         System.out.println(getStrength());
     }
 
@@ -106,6 +115,7 @@ public class Player extends Body {
      */
     public void live(double dt){
         time+=10*dt;
+        fighting(dt);
         if(!uic.isKeyDown(KeyEvent.VK_D) && !uic.isKeyDown(KeyEvent.VK_S) && !uic.isKeyDown(KeyEvent.VK_W) && !uic.isKeyDown(KeyEvent.VK_A) && !mode2.equals("fightE")&& !mode2.equals("fightS")&& !mode2.equals("sword") && !mode2.equals("roll") ){
             mode2="stand";
             mode="none";
@@ -132,7 +142,6 @@ public class Player extends Body {
         if(stats[0]<=0){
             mode="boom";
         }
-        fighting(dt);
         if(mode2.equals("stand") && stats[1]<bars[1].getWidth()) {
             stats[1]+=32*dt;
         }
@@ -157,11 +166,27 @@ public class Player extends Body {
     @Override
     public void mousePressed(MouseEvent e) {
         mode="fight";
-        if(e.getButton()==1 && stats[1]>0){
+        if(e.getButton()==1 && stats[1]>0 && inventory.isEmpty()){
             mode2="fightE";
+        }else if(e.getButton()==1 && stats[1]>0 && !inventory.isEmpty()){
+            mode2="sword";
         }
         if(e.getButton()==3 && stats[1]>0){
             mode2="fightS";
+        }
+    }
+
+    /**
+     * Kollsion des Kampfes
+     * @param dt Zeit seit dem letzten Aufruf der Methode
+     */
+    public void fightCollision(double dt){
+        if(hitbox[0]+hitbox[2]>enemy.getX() && hitbox[0]<enemy.getX()+enemy.getWidth() && hitbox[1]+hitbox[3]>enemy.getY() && hitbox[1]<enemy.getY()+enemy.getHeight() ){
+            enemy.setHp((int)((enemy.getHP()-(getStrength()/enemy.getResistance())*dt)));
+        }
+        if(collidesWith(enemy) && enemy.getMode().equals("fight" )&& time>=5 && time<=7){
+            System.out.println("Lel"+stats[0]);
+            this.stats[0]-=enemy.getStrength()/(getResistance()*0.01)*dt;
         }
     }
 
@@ -342,8 +367,11 @@ public class Player extends Body {
                 setSpeed(getSpeed() + powerUpUse.getuSpeed());
                 setStamina(getStamina() + powerUpUse.getuStamina());
             } else {
-                if (powerUpUse.getPowerUpType() == 3) {
-                    enemy.setMode("lel");
+                if (powerUpUse.getPowerUpType() == 3 && enemy.stats[0]>=0) {
+                        enemy.setMode("lel");
+                }else{
+                    enemy.setMode("stand");
+                    enemy.stats[0]=256;
                 }
             }
             powerUpInventory.pop();

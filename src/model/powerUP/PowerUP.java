@@ -124,8 +124,7 @@ public abstract class PowerUP extends GraphicalObject {
     }
 
     public void draw(DrawTool drawTool){
-        drawTool.drawRectangle(x,y,width,height);
-        if(!pickedUp){
+        if(!pickedUp && uBody!=null && uBody.getBg()!=null &&uBody.getBg().getMode().equals("fight")){
             drawTool.drawImage(this.getMyImage(), x, y);
         }
     }

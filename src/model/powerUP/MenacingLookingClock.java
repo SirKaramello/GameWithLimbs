@@ -8,32 +8,17 @@ import model.Body;
 
 public class MenacingLookingClock  extends PowerUP{
 
-    private double timeStopCount;
 
     public MenacingLookingClock(Body body){
+        setuBody(body);
         filePath="assets/images/pU/menacing.png";
         setTimeStopCount(0);
         setAmountOfST(5);
         setSTOP(false);
         setPowerUpType(3);
         x=Math.random()*1800;
-        yMax=500+(int)(Math.random()*1080);
+        yMax=400+(int)(Math.random()*(500));
         setMyImage(createNewImage(getFilePath()));
-    }
-
-    public void update(double dt) {
-       // super.update(dt);
-        double timeStop = this.getTimeStopCount();
-        while (this.getTimeStopCount() < 0) {
-            if (!this.isSTOP()) {
-                this.setSTOP(false);
-            }
-            while (this.getTimeStopCount() >= 0) {
-                if (!this.isSTOP()) {
-                    this.setSTOP(true);
-                }
-            }
-        }
     }
 
 }

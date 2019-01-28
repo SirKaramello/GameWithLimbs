@@ -102,19 +102,13 @@ public class Body extends GraphicalObject {
         if(mode.equals("down")) {
             drawTool.drawImage(body.getTile((int) time, 1), x, y);
         }
-        if(mode2.equals("fightE") && mode.equals("left") ) {
-            drawTool.flipImage(fight.getTile((int) time, 0), x, y,-256,360);
-        }
-        if(mode2.equals("fightS") && mode.equals("left") ) {
-            drawTool.flipImage(fight.getTile((int) time, 1), x, y,-256,360);
-        }
-        if(mode2.equals("fightE")  ) {
+        if(mode2.equals("fightE")&& mode.equals("fight")  ) {
             drawTool.drawImage(fight.getTile((int) time, 0), x, y);
         }
-        if(mode2.equals("sword")){
+        if(mode2.equals("sword")&& mode.equals("fight")){
             drawTool.drawImage(fight.getTile((int) time, 2), x, y);
         }
-        if(mode2.equals("fightS")  ) {
+        if(mode2.equals("fightS")&& mode.equals("fight") ) {
             drawTool.drawImage(fight.getTile((int) time, 1), x, y);
         }
         if(mode2.equals("stand") && mode.equals("none") ) {
@@ -132,7 +126,7 @@ public class Body extends GraphicalObject {
      * @param dt
      */
     public void fighting(double dt){
-        if(mode2.equals("fightE") || mode2.equals("fightS")) {
+        if(mode2.equals("fightE") || mode2.equals("fightS") || mode2.equals("sword")) {
             if (stats[1] > 0) {
                 stats[1] -= 10 * 0.5 * dt;
             } else {
@@ -145,11 +139,9 @@ public class Body extends GraphicalObject {
                 hitbox((int) (x + fight.getTile((int) (time), 0).getWidth() / 2), y + fight.getTile((int) (time), 0).getHeight(), 75, 20);
 
             }
-            if(hitbox[0]+hitbox[2]>enemy.getX() && hitbox[0]<enemy.getX()+enemy.getWidth() && hitbox[1]+hitbox[3]>enemy.getY() && hitbox[1]<enemy.getY()+enemy.getHeight() ){
-                enemy.setHp((int)((enemy.getHP()-(enemy.getStrength()/getResistance())*dt)));
-            }
         }
     }
+
 
     /**
      * Checkt ob der Spieler in der Arena ist und wenn dann setzt er denn Mode auf falling
@@ -167,7 +159,7 @@ public class Body extends GraphicalObject {
      * Der Spieler trifft den Gegner
      * @param en der übergebene Gegner
      */
-    public void meetEnemy(Enemy en){
+    public void meetEnemy(Body en){
         enemy=en;
     }
 
@@ -375,6 +367,9 @@ public class Body extends GraphicalObject {
         double tmp = deTe;
         while (tmp+time < deTe)
             stats[4]=resistance;
+    }
+    public Background getBg(){
+        return bg;
     }
     /**
     * Resistäznen werden verändert
