@@ -25,6 +25,8 @@ public class Enemy extends Body {
         this.enemy=enemy;
         gd=GraphicsEnvironment.getLocalGraphicsEnvironment();
         mode2="stand";
+        x=1000;
+        y=800;
         mode="none";
         setRandomStats();
         state="attack";

@@ -5,7 +5,6 @@ import akkgframework.model.abitur.datenstrukturen.List;
 import akkgframework.model.abitur.datenstrukturen.Queue;
 import akkgframework.model.abitur.datenstrukturen.Stack;
 import akkgframework.view.DrawTool;
-import model.Item;
 import model.powerUP.PowerUP;
 
 import java.awt.event.KeyEvent;
@@ -17,7 +16,6 @@ public class Player extends Body {
 
     //Attribute
     private char[] save;
-    private int upgrade;
     //Referenzen
     private Stack<PowerUP> powerUpInventory;
     private Limb[] legs, arms;
@@ -38,6 +36,7 @@ public class Player extends Body {
         inventory = new List<>();
         getSaveData();
         handleSave();
+        x=100;y=800;
         qPressed = false;
         notAble = false;
         cantUpgrade = false;
@@ -79,6 +78,10 @@ public class Player extends Body {
         }
     }
 
+    /**
+     * Bewegung des Spielers
+     * @param dt zeit seit dem letzten aufruf der methode
+     */
     public void update(double dt) {
         if (bg != null && bg.getMode().equals("fight")) {
             super.update(dt);
@@ -92,9 +95,9 @@ public class Player extends Body {
      * @param e
      */
     public void mouseWheelMoved(MouseWheelEvent e){
-        if(e.getWheelRotation()>=1){
-
-        }
+        nextWeapon(e.getWheelRotation());
+        inventory.getContent().gotBought();
+        System.out.println(getStrength());
     }
 
     /**

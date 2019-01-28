@@ -47,7 +47,6 @@ public class Background extends GraphicalObject {
         frameX = 0;
         frameY = 0;
         frameActive = false;
-
     }
 
     /**

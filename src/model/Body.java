@@ -171,8 +171,13 @@ public class Body extends GraphicalObject {
         enemy=en;
     }
 
+    public void nextWeapon(int i){
+        if(i>1){
+            inventory.next();
+        }
+    }
+
     /**
-     *
      * @param x Koordinate der Hitbox
      * @param y Koordinate der Hitbox
      * @param width Breite der Hitbox

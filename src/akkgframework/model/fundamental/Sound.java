@@ -1,11 +1,9 @@
 package akkgframework.model.fundamental;
 
-/*import javafx.scene.media.Media;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import jdk.nashorn.internal.runtime.regexp.joni.Config;
-*/
-import control.Config;
 
 import java.io.File;
 
@@ -21,7 +19,7 @@ public class Sound {
     private String name;
 
     // Referenz
-    //private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer;
 
     /**
      * Erzeugt einen neuen Sound mit Angabe, ob er wiederholt werden soll.
@@ -32,12 +30,12 @@ public class Sound {
     public Sound(String filename, String name, boolean loop) {
         this(filename,name);
         if (loop){
-       /*     mediaPlayer.setOnEndOfMedia(new Runnable(){
+            mediaPlayer.setOnEndOfMedia(new Runnable(){
                 @Override
                 public void run() {
                     mediaPlayer.seek(Duration.ZERO);
                 }
-            });*/
+            });
         }
     }
 
@@ -50,8 +48,8 @@ public class Sound {
         this.filename = filename;
         this.name = name;
         File f = new File(System.getProperty("user.dir")+"/"+filename);
-        //Media sound = new Media(f.toURI().toString());
-        //mediaPlayer = new MediaPlayer(sound);
+        Media sound = new Media(f.toURI().toString());
+        mediaPlayer = new MediaPlayer(sound);
     }
 
     /**
@@ -59,14 +57,14 @@ public class Sound {
      */
     public void play() {
         if ( Config.DEBUG) System.out.println("Versuche: "+this.getFilename()+" abzuspielen als: "+this.getName());
-       // mediaPlayer.play();
+        mediaPlayer.play();
     }
 
     /**
      * Stoppt den Sound.
      */
     public void stop() {
-        //mediaPlayer.stop();
+        mediaPlayer.stop();
     }
 
     /**
@@ -74,7 +72,7 @@ public class Sound {
      * @return
      */
     public boolean isPlaying(){
-       // if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) return true;
+        if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) return true;
         return false;
     }
 

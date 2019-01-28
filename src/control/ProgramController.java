@@ -2,8 +2,7 @@ package control;
 
 import akkgframework.control.fundamental.UIController;
 import akkgframework.model.Display;
-import akkgframework.control.fundamental.SoundController;
-import akkgframework.model.abitur.datenstrukturen.List;
+import akkgframework.model.fundamental.SoundController;
 import model.*;
 import model.powerUP.*;
 
@@ -36,6 +35,8 @@ public class ProgramController {
      */
     public ProgramController(UIController uiController){
         this.uiController = uiController;
+        soundController=new SoundController();
+        soundController.loadSound("assets/sounds/3.wav","fight",true);
         pFTS = new PowerUP[3];
         body=new Player(uiController);
         pFTS[0]=new MenacingLookingClock(body);
@@ -56,6 +57,7 @@ public class ProgramController {
         programTimer = 0;
         // ******************************************* Ab hier euer eigener Code! *******************************************
         uiController.registerObject(bg);
+        uiController.registerObject(soundController);
         uiController.registerObject(enemies);
         uiController.registerObject(body);
         for(int i=0;i<pFTS.length;i++){
@@ -73,6 +75,9 @@ public class ProgramController {
      */
     public void updateProgram(double dt){
         programTimer += dt;
+        if(!soundController.isPlaying("fight")){
+            soundController.playSound("fight");
+        }
 
         // ******************************************* Ab hier euer eigener Code! *******************************************
     }
