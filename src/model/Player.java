@@ -171,6 +171,10 @@ public class Player extends Body {
         }else if(e.getButton()==1 && stats[1]>0 && !inventory.isEmpty()){
             mode2="sword";
         }
+        if(e.getButton()==3 && stats[1]>0 && !inventory.isEmpty()){
+            getNextItem();
+            System.out.println(inventory.getContent().getName());
+        }
         if(e.getButton()==3 && stats[1]>0){
             mode2="fightS";
         }
@@ -304,12 +308,15 @@ public class Player extends Body {
     }
 
     /**
-     * Packt ein neues Item ins Inventar
-     * @param item <- das neue Item
+     * wechselt zum nächsten item
      */
-    private void getNewItem(Item item){
-        inventory.toFirst();
-        inventory.append(item);
+    private void getNextItem() {
+        if (!inventory.isEmpty()){
+            inventory.next();
+        }
+        if(inventory.getContent()==null){
+            inventory.toFirst();
+        }
     }
 
         /**
@@ -358,6 +365,9 @@ public class Player extends Body {
         }
     }
 
+    /**
+     * Benutzt das PowerUp
+     */
     public void usePowerUP() {
         if (!powerUpInventory.isEmpty()) {
             PowerUP powerUpUse = powerUpInventory.top();
