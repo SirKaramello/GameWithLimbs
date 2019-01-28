@@ -20,6 +20,19 @@ public class Gold extends Item {
      */
     public void gotBought() {
         setuLire(getuLire() - getCost());
+    }
+    /**
+     * aktiviert das Item
+     */
+    public void activate(){
         setuStrength(getuStrength()+80);
     }
+    /**
+     * deaktiviert das Item
+     */
+    public void deactivate() {
+        setuStrength(getuStrength() - 80);
+    }
+
+
 }

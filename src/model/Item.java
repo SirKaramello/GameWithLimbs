@@ -63,44 +63,9 @@ public abstract class Item extends GraphicalObject {
         uBody.setStrength(uStrength);
     }
 
-    public int getuResistance() {
-        return uBody.getResistance();
-    }
 
     public void setuResistance(int uResistance, int Time) {
         uBody.setResistance(uResistance, Time);
-    }
-
-    public int getPowerUpType() {
-        return powerUpType;
-    }
-
-    public void setPowerUpType(int powerUpType) {
-        this.powerUpType = powerUpType;
-    }
-
-    public double getTimeStopCount() {
-        return TimeStopCount;
-    }
-
-    public int getAmountOfST() {
-        return amountOfST;
-    }
-
-    public void setAmountOfST(int amountOfST) {
-        this.amountOfST = amountOfST;
-    }
-
-    public boolean isSTOP() {
-        return STOP;
-    }
-
-    public void setSTOP(boolean STOP) {
-        this.STOP = STOP;
-    }
-
-    public void setTimeStopCount(double timeStopCount) {
-        TimeStopCount = timeStopCount;
     }
 
     public String getName() {
@@ -119,17 +84,9 @@ public abstract class Item extends GraphicalObject {
         this.cost = cost;
     }
 
-    public Boolean getBought() {
-        return bought;
-    }
+    public abstract void deactivate();
 
-    public void setBought(Boolean bought) {
-        this.bought = bought;
-    }
-
-    public void createNew(){
-        bought = true;
-    }
+    public abstract void activate();
 
     public abstract void gotBought();
 

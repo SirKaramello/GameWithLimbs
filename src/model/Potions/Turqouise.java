@@ -20,4 +20,17 @@ public class Turqouise extends Item {
         setuLire(getuLire() - getCost());
         setuStrength(getuStrength() + 10);
     }
+    /**
+     * aktiviert das Item
+     */
+    public void activate(){
+        setuStrength(getuStrength() + 10);
+    }
+    /**
+     * deaktiviert das Item
+     */
+    public void deactivate(){
+
+    }
+
 }

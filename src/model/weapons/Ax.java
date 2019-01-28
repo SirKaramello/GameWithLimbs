@@ -22,6 +22,17 @@ public class Ax extends Item {
     public void gotBought(){
         setuLire(getuLire() - getCost());
         setuSpeed(getuSpeed() - 5);
+    }
+    /**
+     * aktiviert das Item
+     */
+    public void activate(){
         setuStrength(getuStrength()+8);
+    }
+    /**
+     * deaktiviert das Item
+     */
+    public void deactivate() {
+        setuStrength(getuStrength() - 8);
     }
 }

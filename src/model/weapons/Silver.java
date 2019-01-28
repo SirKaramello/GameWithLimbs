@@ -19,6 +19,19 @@ public class Silver extends Item {
      */
     public void gotBought() {
         setuLire(getuLire() - getCost());
+    }
+    /**
+     * aktiviert das Item
+     */
+    public void activate(){
         setuStrength(getuStrength()+50);
     }
+    /**
+     * deaktiviert das Item
+     */
+    public void deactivate() {
+        setuStrength(getuStrength() - 50);
+    }
+
+
 }

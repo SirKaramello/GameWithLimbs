@@ -21,6 +21,18 @@ public class MorningStar extends Item {
     public void gotBought() {
         setuLire(getuLire() - getCost());
         setuSpeed(getuSpeed() - 2);
+    }
+    /**
+     * aktiviert das Item
+     */
+    public void activate(){
         setuStrength(getuStrength()+20);
     }
+    /**
+     * deaktiviert das Item
+     */
+    public void deactivate() {
+        setuStrength(getuStrength() - 20);
+    }
+
 }

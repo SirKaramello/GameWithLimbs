@@ -21,5 +21,17 @@ public class Yellow extends Item {
         setuHp(getuHp() + 3);
     }
 
+    /**
+     * aktiviert das Item
+     */
+    public void activate(){
+        setuHp(getuHp() + 3);
+    }
+    /**
+     * deaktiviert das Item
+     */
+    public void deactivate(){
+
+    }
 
 }

@@ -5,7 +5,10 @@ import akkgframework.model.abitur.datenstrukturen.List;
 import akkgframework.model.abitur.datenstrukturen.Queue;
 import akkgframework.model.abitur.datenstrukturen.Stack;
 import akkgframework.view.DrawTool;
+import model.powerUP.HylianShield;
+import model.powerUP.MenacingLookingClock;
 import model.powerUP.PowerUP;
+import model.powerUP.SuspiciousLookingMushroom;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -173,6 +176,7 @@ public class Player extends Body {
         }
         if(e.getButton()==3 && stats[1]>0 && !inventory.isEmpty()){
             getNextItem();
+            System.out.println(getStrength());
             System.out.println(inventory.getContent().getName());
         }
         if(e.getButton()==3 && stats[1]>0){
@@ -312,12 +316,18 @@ public class Player extends Body {
      */
     private void getNextItem() {
         if (!inventory.isEmpty()){
+            if(inventory.hasAccess()) {
+                inventory.getContent().deactivate();
+            }
             inventory.next();
-        }
-        if(inventory.getContent()==null){
-            inventory.toFirst();
+            if(inventory.hasAccess()){
+                inventory.getContent().activate();
+            }else{
+                inventory.toFirst();
+            }
         }
     }
+
 
         /**
          * Füllt die Queue mit tollen Dingen
@@ -385,6 +395,14 @@ public class Player extends Body {
                 }
             }
             powerUpInventory.pop();
+        }else{
+
+            for(int i=0;i<pFTS.length;i++) {
+                if(pFTS[i].getPickedUp()) {
+                    pFTS[i].setPickedUp(false);
+                    pFTS[i].setY(-100);
+                }
+            }
         }
     }
 

@@ -133,5 +133,9 @@ public abstract class PowerUP extends GraphicalObject {
         pickedUp=p;
     }
 
+    public boolean getPickedUp(){
+        return pickedUp;
+    }
+
 }
 

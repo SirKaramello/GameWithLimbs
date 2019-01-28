@@ -75,6 +75,7 @@ public class ProgramController {
      */
     public void updateProgram(double dt){
         programTimer += dt;
+
         if(!soundController.isPlaying("fight")){
             soundController.playSound("fight");
         }
@@ -85,6 +86,12 @@ public class ProgramController {
     public void updateStoppedTime(double dt, double timeStopCount){
         timer = 5;
         timer = timer - dt;
+    }
+
+    public void newPowerUps(){
+        pFTS[0]=new MenacingLookingClock(body);
+        pFTS[1]=new SuspiciousLookingMushroom(body);
+        pFTS[2]=new HylianShield(body);
     }
 
 

@@ -20,4 +20,17 @@ public class GreenYellowy extends Item {
         setuStamina(getuStamina() - 30);
         setuSpeed(getuSpeed() + 10);
     }
+    /**
+     * aktiviert das Item
+     */
+    public void activate(){
+        setuSpeed(getuSpeed() + 10);
+    }
+    /**
+     * deaktiviert das Item
+     */
+    public void deactivate(){
+
+    }
+
 }

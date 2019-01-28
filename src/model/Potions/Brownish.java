@@ -18,7 +18,19 @@ public class Brownish extends Item {
      */
     public void gotBought() {
         setuLire(getuLire() - getCost());
+    }
+    /**
+     * aktiviert das Item
+     */
+    public void activate(){
         setuStrength(getuStrength() + 10);
         setuSpeed(getuSpeed() + 10);
     }
+    /**
+     * deaktiviert das Item
+     */
+    public void deactivate(){
+
+    }
+
 }

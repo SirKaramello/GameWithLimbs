@@ -20,4 +20,16 @@ public class Orange extends Item {
         setuLire(getuLire() - getCost());
         setuResistance(10000000, 30);
     }
+    /**
+     * aktiviert das Item
+     */
+    public void activate(){
+
+    }
+    /**
+     * deaktiviert das Item
+     */
+    public void deactivate(){
+
+    }
 }

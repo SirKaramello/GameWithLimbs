@@ -23,4 +23,19 @@ public class FancyAf extends Item {
         setuSpeed(getuSpeed() + 10);
         setuStrength(getuStrength() + 10);
     }
+    /**
+     * aktiviert das Item
+     */
+    public void activate(){
+        setuHp(getuHp() + 3);
+        setuSpeed(getuSpeed() + 10);
+        setuStrength(getuStrength() + 10);
+    }
+    /**
+     * deaktiviert das Item
+     */
+    public void deactivate(){
+
+    }
+
 }

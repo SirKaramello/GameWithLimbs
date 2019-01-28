@@ -18,6 +18,17 @@ public class Stick extends Item {
      */
     public void gotBought() {
         setuLire(getuLire() - getCost());
+    }
+    /**
+     * aktiviert das Item
+     */
+    public void activate(){
         setuStrength(getuStrength()+6);
+    }
+    /**
+     * deaktiviert das Item
+     */
+    public void deactivate() {
+        setuStrength(getuStrength() - 6);
     }
 }

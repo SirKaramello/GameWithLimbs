@@ -19,7 +19,20 @@ public class Galaxy extends Item {
      */
     public void gotBought() {
         setuLire(getuLire() - getCost());
-        setuHp(getuHp() + 3);
         setuResistance(1000000, 20);
     }
+
+    /**
+     * aktiviert das Item
+     */
+    public void activate(){
+        setuHp(getuHp() + 3);
+    }
+    /**
+     * deaktiviert das Item
+     */
+    public void deactivate(){
+
+    }
+
 }

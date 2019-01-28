@@ -19,6 +19,18 @@ public class Crossbow extends Item {
      */
     public void gotBought() {
         setuLire(getuLire() - getCost());
+    }
+    /**
+     * aktiviert das Item
+     */
+    public void activate(){
         setuStrength(getuStrength()+30);
     }
+    /**
+     * deaktiviert das Item
+     */
+    public void deactivate(){
+        setuStrength(getuStrength()-30);
+    }
+
 }

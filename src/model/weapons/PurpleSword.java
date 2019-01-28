@@ -19,7 +19,19 @@ public class PurpleSword extends Item {
      */
     public void gotBought() {
         setuLire(getuLire() - getCost());
-        setuStrength(getuStrength()+28);
         setuSpeed(getuSpeed() + 2);
     }
+    /**
+     * aktiviert das Item
+     */
+    public void activate(){
+        setuStrength(getuStrength()+28);
+    }
+    /**
+     * deaktiviert das Item
+     */
+    public void deactivate() {
+        setuStrength(getuStrength() - 28);
+    }
+
 }
